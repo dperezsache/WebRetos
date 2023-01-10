@@ -1,0 +1,121 @@
+/* David Pérez Saché */
+body
+{
+    font-family: Verdana;
+}
+
+a
+{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover
+{
+    color: blue;
+}
+
+.material-icons
+{
+    color: navy;
+}
+
+form, p
+{
+    background-color: azure;
+    border-radius: 5px;
+    border: 1px solid lightblue;
+    padding: 10px;
+}
+
+form
+{
+    width: 300px;
+    height: 70px;
+    margin: auto;
+}
+
+form input
+{
+    width: 200px;
+    border: 1px solid black;
+}
+
+p
+{
+    text-align: center;
+    margin: 5px auto;
+    width: 300px;
+}
+
+form button
+{
+    background-color: ghostwhite;
+    border: 1px solid black;
+    width: 100px;
+}
+
+form button:hover
+{
+    color: blue;
+}
+
+table
+{
+    border-collapse: collapse;
+    width: 500px;
+    border: 1px solid black;
+    margin: auto;
+}
+
+table tbody tr td p 
+{
+    width: 30px;
+    padding: 5px;
+}
+
+table tbody tr td, table thead tr th
+{
+    border-bottom: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+table tbody tr:nth-child(even)
+{
+    background-color: rgb(224, 240, 255);
+}
+
+table tbody tr:nth-child(odd)
+{
+    background-color: aliceblue;
+}
+
+p span#error
+{
+    color: red;
+    font-weight: bold;
+}
+
+p span#exito
+{
+    color: green;
+    font-weight: bold;
+}
+
+div.divBotones
+{
+    background-color: azure;
+    border-radius: 5px;
+    border: 1px solid lightblue;
+    padding: 10px;
+    text-align: center;
+    margin: 10px auto;
+    width: 24px;
+    height: 24px;
+}
+
+form div#divForm
+{
+    text-align: center;
+}
