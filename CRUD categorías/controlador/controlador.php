@@ -86,14 +86,5 @@
                 return null;
             }
         }
-
-        /**
-         * Devuelve la fecha actual.
-         */
-        public function obtenerFechaActual()
-        {
-            $fechaActual = date('d-m-Y');
-            return $fechaActual;
-        }
     }
 ?>
