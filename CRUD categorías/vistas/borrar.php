@@ -17,11 +17,11 @@
             {
                 if($controlador->borrarCategoria($_GET['id']))
                 {
-                    echo '<p><span id="exito">Exito:</span> La categoría con ID ' . $id . ' ha sido eliminada.</p>';
+                    echo '<p><span id="exito">Exito:</span> La categoría con ID ' . $_GET['id'] . ' ha sido eliminada.</p>';
                 }
                 else
                 {
-                    echo '<p><span id="error">Error:</span> La categoría con ID ' . $id . ' no ha podido ser eliminada.</p>';
+                    echo '<p><span id="error">Error:</span> La categoría con ID ' . $_GET['id'] . ' no ha podido ser eliminada.</p>';
                 }
             }
         ?>
