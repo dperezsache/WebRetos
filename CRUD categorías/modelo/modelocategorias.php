@@ -21,25 +21,32 @@
          */
         public function altaCategoria($nombre)
         {
-            $this->obtenerConexion();
-            $consulta = "INSERT INTO categorias(nombreCategoria) VALUES('" . $nombre . "');";
-            
-            if($this->conexion != null)
+            try
             {
-                $this->conexion->query($consulta);
-
-                if($this->conexion->affected_rows > 0)
+                $this->obtenerConexion();
+                $consulta = "INSERT INTO categorias(nombreCategoria) VALUES('" . $nombre . "');";
+                
+                if($this->conexion != null)
                 {
-                    $this->conexion->close();
-                    return true;
+                    $this->conexion->query($consulta);
+    
+                    if($this->conexion->affected_rows > 0)
+                    {
+                        $this->conexion->close();
+                        return true;
+                    }
+                    else
+                    {
+                        $this->conexion->close();
+                        return false;
+                    }
                 }
                 else
                 {
-                    $this->conexion->close();
                     return false;
                 }
             }
-            else
+            catch(mysqli_sql_exception $e)
             {
                 return false;
             }
@@ -52,25 +59,32 @@
          */
         public function borrarCategoria($id)
         {
-            $this->obtenerConexion();
-            $consulta = "DELETE FROM categorias WHERE idCategoria='$id'";
-
-            if($this->conexion != null)
+            try
             {
-                $this->conexion->query($consulta);
-
-                if($this->conexion->affected_rows > 0)
+                $this->obtenerConexion();
+                $consulta = "DELETE FROM categorias WHERE idCategoria='$id'";
+    
+                if($this->conexion != null)
                 {
-                    $this->conexion->close();
-                    return true;
+                    $this->conexion->query($consulta);
+    
+                    if($this->conexion->affected_rows > 0)
+                    {
+                        $this->conexion->close();
+                        return true;
+                    }
+                    else
+                    {
+                        $this->conexion->close();
+                        return false;
+                    }
                 }
                 else
                 {
-                    $this->conexion->close();
                     return false;
                 }
             }
-            else
+            catch(mysqli_sql_exception $e)
             {
                 return false;
             }
@@ -84,28 +98,35 @@
          */
         public function modificarCategoria($id, $nombre)
         {
-            $this->obtenerConexion();
-            $consulta = "UPDATE categorias SET idCategoria='$id', nombreCategoria='$nombre' WHERE idCategoria='$id'";
-            
-            if($this->conexion != null && $nombre != null)
+            try
             {
-                $this->conexion->query($consulta);
-
-                if($this->conexion->affected_rows > 0)
+                $this->obtenerConexion();
+                $consulta = "UPDATE categorias SET idCategoria='$id', nombreCategoria='$nombre' WHERE idCategoria='$id'";
+                
+                if($this->conexion != null && $nombre != null)
                 {
-                    $this->conexion->close();
-                    return true;
+                    $this->conexion->query($consulta);
+    
+                    if($this->conexion->affected_rows > 0)
+                    {
+                        $this->conexion->close();
+                        return true;
+                    }
+                    else
+                    {
+                        $this->conexion->close();
+                        return false;
+                    }
                 }
                 else
                 {
-                    $this->conexion->close();
                     return false;
                 }
             }
-            else
+            catch(mysqli_sql_exception $e)
             {
                 return false;
-            }
+            }          
         }
 
         /**
@@ -115,24 +136,31 @@
          */
         public function obtenerNombreCategoria($id)
         {
-            $this->obtenerConexion();
-            $consulta = "SELECT nombreCategoria FROM categorias WHERE idCategoria='$id'";
-
-            if($this->conexion != null)
+            try
             {
-                $datos = $this->conexion->query($consulta);
-                $fila = $datos->fetch_array(MYSQLI_ASSOC);
-
-                if(isset($fila['nombreCategoria']) && !empty($fila['nombreCategoria']))
+                $this->obtenerConexion();
+                $consulta = "SELECT nombreCategoria FROM categorias WHERE idCategoria='$id'";
+    
+                if($this->conexion != null)
                 {
-                    return $fila['nombreCategoria'];
+                    $datos = $this->conexion->query($consulta);
+                    $fila = $datos->fetch_array(MYSQLI_ASSOC);
+    
+                    if(isset($fila['nombreCategoria']) && !empty($fila['nombreCategoria']))
+                    {
+                        return $fila['nombreCategoria'];
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else
                 {
                     return null;
                 }
             }
-            else
+            catch(mysqli_sql_exception $e)
             {
                 return null;
             }
@@ -143,25 +171,32 @@
          */
         public function listadoCategorias()
         {
-            $this->obtenerConexion();
-            $consulta = 'SELECT * FROM categorias ORDER BY idCategoria ASC';
-
-            if($this->conexion != null)
+            try
             {
-                $datos = $this->conexion->query($consulta);
-
-                if($datos->num_rows > 0)
+                $this->obtenerConexion();
+                $consulta = 'SELECT * FROM categorias ORDER BY idCategoria ASC';
+    
+                if($this->conexion != null)
                 {
-                    $this->conexion->close();
-                    return $datos;
+                    $datos = $this->conexion->query($consulta);
+    
+                    if($datos->num_rows > 0)
+                    {
+                        $this->conexion->close();
+                        return $datos;
+                    }
+                    else
+                    {
+                        $this->conexion->close();
+                        return null;
+                    }
                 }
                 else
                 {
-                    $this->conexion->close();
                     return null;
                 }
             }
-            else
+            catch(mysqli_sql_exception $e)
             {
                 return null;
             }
