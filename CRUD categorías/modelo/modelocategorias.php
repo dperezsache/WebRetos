@@ -48,7 +48,7 @@
             }
             catch(mysqli_sql_exception $e)
             {
-                return false;
+                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
             }
         }
 
@@ -86,7 +86,7 @@
             }
             catch(mysqli_sql_exception $e)
             {
-                return false;
+                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
             }
         }
 
@@ -125,7 +125,7 @@
             }
             catch(mysqli_sql_exception $e)
             {
-                return false;
+                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
             }          
         }
 
@@ -162,7 +162,7 @@
             }
             catch(mysqli_sql_exception $e)
             {
-                return null;
+                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
             }
         }
 
@@ -198,7 +198,7 @@
             }
             catch(mysqli_sql_exception $e)
             {
-                return null;
+                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
             }
         }
     }

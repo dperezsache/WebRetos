@@ -23,7 +23,7 @@
             catch(mysqli_sql_exception $e)
             {
                 $this->conexion = null;
-                echo $e->getMessage();
+                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
             }
         }
     }
