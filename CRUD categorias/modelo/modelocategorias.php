@@ -17,7 +17,7 @@
         /**
          * Añadir categoría.
          * @param String $nombre Nombre de la categoría.
-         * @return Boolean True si se añade, False si no.
+         * @return Number Nº del resultado.
          */
         public function altaCategoria($nombre)
         {
@@ -33,29 +33,29 @@
                     if($this->conexion->affected_rows > 0)
                     {
                         $this->conexion->close();
-                        return true;
+                        return 1;
                     }
                     else
                     {
                         $this->conexion->close();
-                        return false;
+                        return 0;
                     }
                 }
                 else
                 {
-                    return false;
+                    return -1;
                 }
             }
             catch(mysqli_sql_exception $e)
             {
-                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
+                return $e->getCode();
             }
         }
 
         /**
          * Borra una categoría.
          * @param Number $id ID de la categoría.
-         * @return Boolean True si se borra, False si no.
+         * @return Number Nº del resultado.
          */
         public function borrarCategoria($id)
         {
@@ -71,22 +71,22 @@
                     if($this->conexion->affected_rows > 0)
                     {
                         $this->conexion->close();
-                        return true;
+                        return 1;
                     }
                     else
                     {
                         $this->conexion->close();
-                        return false;
+                        return 0;
                     }
                 }
                 else
                 {
-                    return false;
+                    return -1;
                 }
             }
             catch(mysqli_sql_exception $e)
             {
-                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
+                return $e->getCode();
             }
         }
 
@@ -94,7 +94,7 @@
          * Modifica una categoría.
          * @param Number $id ID de la categoría.
          * @param String $nombre Nombre de la categoría.
-         * @return Boolean True si se actualiza, False si no.
+         * @return Number Nº del resultado.
          */
         public function modificarCategoria($id, $nombre)
         {
@@ -103,29 +103,29 @@
                 $this->obtenerConexion();
                 $consulta = "UPDATE categorias SET idCategoria='$id', nombreCategoria='$nombre' WHERE idCategoria='$id'";
                 
-                if($this->conexion != null && $nombre != null)
+                if($this->conexion != null)
                 {
                     $this->conexion->query($consulta);
     
                     if($this->conexion->affected_rows > 0)
                     {
                         $this->conexion->close();
-                        return true;
+                        return 1;
                     }
                     else
                     {
                         $this->conexion->close();
-                        return false;
+                        return 0;
                     }
                 }
                 else
                 {
-                    return false;
+                    return -1;
                 }
             }
             catch(mysqli_sql_exception $e)
             {
-                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
+                return $e->getCode();
             }          
         }
 
@@ -152,17 +152,17 @@
                     }
                     else
                     {
-                        return null;
+                        return '';
                     }
                 }
                 else
                 {
-                    return null;
+                    return '';
                 }
             }
             catch(mysqli_sql_exception $e)
             {
-                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
+                return '';
             }
         }
 
@@ -198,7 +198,7 @@
             }
             catch(mysqli_sql_exception $e)
             {
-                echo '<p><span id="error">Error:</span> ' . $e->getMessage() . '</p>';
+                return null;
             }
         }
     }

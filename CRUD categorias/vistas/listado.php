@@ -7,7 +7,7 @@
     <head>
         <meta charset="UTF-8"/>
 		<meta name="author" content="David Pérez Saché"/>
-        <link rel="stylesheet" type="text/css" href="../estilos.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/estilos.css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 		<title>Consultar categorías</title>
     </head>
@@ -17,7 +17,7 @@
         </div>
         <?php
             $datos = $controlador->getListado();
-
+            
             if($datos != null)
             {
                 echo '<table><thead><tr>';
@@ -35,7 +35,7 @@
                         echo '<td>' . $valor . '</td>';
                     }
 
-                    echo '<td><p><a href="borrar.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">delete</span></a></p></td>';
+                    echo '<td><p><a href="confirmarBorrado.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">delete</span></a></p></td>';
                     echo '<td><p><a href="modificar.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">edit</span></a></p></td>';
                     echo '</tr>';
                 }

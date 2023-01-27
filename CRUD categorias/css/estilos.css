@@ -48,14 +48,14 @@ p
     width: 300px;
 }
 
-form button
+button
 {
     background-color: ghostwhite;
     border: 1px solid black;
     width: 100px;
 }
 
-form button:hover
+button:hover
 {
     color: blue;
 }
@@ -115,7 +115,30 @@ div.divBotones
     height: 24px;
 }
 
+
 form div#divForm
 {
     text-align: center;
+}
+
+div#divConfirmar
+{
+    width: 350px;
+    margin: auto;
+    text-align: center;
+    background-color: azure;
+}
+
+button#botonListado
+{
+    display: block;
+    margin: auto;
+    margin-top: 30px;
+    width: 150px;
+    height: 30px;
+}
+
+button[type="submit"]
+{
+    margin-top: 5px;
 }
