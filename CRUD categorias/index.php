@@ -1,3 +1,3 @@
 <?php
-    header('Location: ../CRUD categorías/vistas/listado.php');
+    header('Location: ../CRUD categorias/vistas/listado.php');
 ?>
