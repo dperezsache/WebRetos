@@ -1,6 +1,10 @@
 <?php
     require_once('../modelo/modelocategorias.php');
 
+    /**
+     * Clase ControladorCategorias.
+     * Controlador del CRUD de categorías.
+     */
     class ControladorCategorias
     {
         private $modelo;

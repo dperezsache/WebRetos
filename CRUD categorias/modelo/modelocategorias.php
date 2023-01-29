@@ -1,6 +1,10 @@
 <?php
     require_once('../modelo/modelodb.php');
 
+    /**
+     * Clase ModeloCategorias.
+     * Clase que ejecuta los procesos del CRUD de categorías.
+     */
     class ModeloCategorias
     {
         private $conexion;

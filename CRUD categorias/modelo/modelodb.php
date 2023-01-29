@@ -2,6 +2,10 @@
     require_once('../config/configuracion.php');
     require_once('../config/configuracionBD.php');
 
+    /**
+     * Clase ModeloDB.
+     * Se encarga de crear conexión con la base de datos.
+     */
     class ModeloDB
     {
         public $conexion;
@@ -19,6 +23,8 @@
             $this->bd = constant('BD');
             $this->codificacion = constant('CODIFICACION');
 
+            error_reporting(E_ERROR | E_PARSE); // Desactivar warnings, ya que afectan a comprobaciones que hago
+            
             try
             {
                 $this->conexion = new mysqli($this->servidor, $this->usuario, $this->contrasenia, $this->bd);
