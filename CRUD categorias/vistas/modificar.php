@@ -8,6 +8,7 @@
         <meta charset="UTF-8"/>
 		<meta name="author" content="David Pérez Saché"/>
         <link rel="stylesheet" type="text/css" href="../css/estilos.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 		<title>Modificar categorías</title>
     </head>
     <body>
@@ -17,6 +18,7 @@
                     Nuevo nombre de categoría <input type="text" name="nombre" value="<?php echo $controlador->obtenerNombreCategoria($_GET) ?>"/>
                 </label>
                 <br/>
+                <button type="reset">Borrar</button>
                 <button type="submit">Modificar</button>
             </div>
         </form>
@@ -49,8 +51,8 @@
                     break;
             }
         ?>
-        <button id="botonListado" type="button">
-            <a href="listado.php">Volver al listado</a>
-        </button>
+        <div class="divBotones">
+            <a href="listado.php"><span class="material-icons">arrow_back</span></a>
+        </div>
     </body>
 </html>
