@@ -20,6 +20,10 @@ a:hover {
     color: navy;
 }
 
+.material-icons:hover {
+    color: rgb(0, 0, 255);
+}
+
 form, p {
     background-color: azure;
     border-radius: 5px;

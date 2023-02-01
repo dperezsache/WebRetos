@@ -17,10 +17,39 @@
             <a href="insertar.php"><span class="material-icons">add</span></a>
         </div>
         <?php
-            $datos = $controlador->getListado();
+            $resultado = $controlador->hayListado();
             
-            if($datos != null)
+            switch($resultado)
             {
+                case -1:
+                    echo '<p><span id="error">Error:</span> No hay conexión con la base de datos.</p>';
+                    break;
+
+                case 0:
+                    echo '<p>No hay datos que mostrar.</p>';
+                    break;
+
+                case 1: // Caso OK
+                    cargar($controlador);
+                    break;
+
+                case 1146:
+                    echo '<p><span id="error">Error:</span> No existe la tabla categorías.</p>';
+                    break;
+
+                default:
+                    echo '<p>Se ha producido un error con código: <b>' . $resultado . '</b>.</p>';
+                    break;
+            }
+
+            /**
+             * Carga el listado con las categorías.
+             * @param ControladorCategorias $controlador Controlador de categorías.
+             */
+            function cargar($controlador)
+            {
+                $datos = $controlador->obtenerListado();
+
                 echo '<table><thead><tr>';
                 echo '<th>ID</th>';
                 echo '<th>Categoría</th>';
@@ -42,10 +71,6 @@
                 }
                 
                 echo '</tbody></table>';
-            }
-            else
-            {
-                echo '<p>No hay datos que mostrar.</p>';
             }
         ?>
         <div class="divBotones">

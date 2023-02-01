@@ -8,6 +8,7 @@
     class ModeloCategorias
     {
         private $conexion;
+        public $listaCategorias;
 
         /** 
          * Obtiene la conexión a la BBDD.
@@ -171,7 +172,8 @@
         }
 
         /**
-         * Devuelve al controlador el listado de categorías.
+         * Obtiene el listado de las categorías.
+         * @return mixed
          */
         public function listadoCategorias()
         {
@@ -187,22 +189,25 @@
                     if($datos->num_rows > 0)
                     {
                         $this->conexion->close();
-                        return $datos;
+                        $this->listaCategorias = $datos;
+                        return 1;
                     }
                     else
                     {
                         $this->conexion->close();
-                        return null;
+                        $this->listaCategorias = null;
+                        return 0;
                     }
                 }
                 else
                 {
-                    return null;
+                    return -1;
                 }
             }
             catch(mysqli_sql_exception $e)
             {
-                return null;
+                $this->listaCategorias = null;
+                return $e->getCode();
             }
         }
     }

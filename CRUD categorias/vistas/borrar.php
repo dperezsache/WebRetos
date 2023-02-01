@@ -28,6 +28,10 @@
                 case 1: // Caso OK
                     echo '<p><span id="exito">Exito:</span> La categoría ha sido eliminada.</p>';
                     break;
+
+                case 1146:
+                    echo '<p><span id="error">Error:</span> No existe la tabla categorías.</p>';
+                    break;
                     
                 default:
                     echo '<p>Se ha producido un error con código: ' . $resultado . '.</p>';

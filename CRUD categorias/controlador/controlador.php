@@ -15,11 +15,21 @@
         }
 
         /**
-         * Devuelve el listado de categorías.
+         * Devuelve si hay listado de categorías o no.
+         * @return Number Nº del código de error o éxito.
          */
-        public function getListado()
+        public function hayListado()
         {
             return $this->modelo->listadoCategorias();
+        }
+
+        /**
+         * Devuelve el listado de las categorías.
+         * @return mixed Listado de categorías.
+         */
+        public function obtenerListado()
+        {
+            return $this->modelo->listaCategorias;
         }
 
         /**

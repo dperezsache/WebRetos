@@ -46,6 +46,10 @@
                 case 1062:
                     echo '<p><span id="error">Error:</span> Ya existe una categoría con ese nombre.</p>';
                     break;
+                
+                case 1146:
+                    echo '<p><span id="error">Error:</span> No existe la tabla categorías.</p>';
+                    break;
 
                 default:
                     echo '<p>Se ha producido un error con código: ' . $resultado . '.</p>';
