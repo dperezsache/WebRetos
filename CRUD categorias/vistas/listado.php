@@ -12,7 +12,7 @@
 		<title>Consultar categorías</title>
     </head>
     <body>
-        <h1>Web de Retos - CRUD de categorías</h1>
+        <h2>Web de Retos - CRUD de categorías</h2>
         <div class="divBotones">
             <a href="insertar.php"><span class="material-icons">add</span></a>
         </div>

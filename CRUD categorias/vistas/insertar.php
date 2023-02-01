@@ -12,6 +12,7 @@
 		<title>Añadir categorías</title>
     </head>
     <body>
+        <h2>Insertar categoría</h2>
         <form action="" method="post">
             <div id="divForm">
                 <label for="nombre">

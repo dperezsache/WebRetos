@@ -12,6 +12,7 @@
 		<title>Modificar categorías</title>
     </head>
     <body>
+        <h2>Modificar categoría</h2>
         <form action="" method="post">
             <div id="divForm">
                 <label for="nombre">
