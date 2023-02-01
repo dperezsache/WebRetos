@@ -12,6 +12,7 @@
 		<title>Consultar categorías</title>
     </head>
     <body>
+        <h1>Web de Retos - CRUD de categorías</h1>
         <div class="divBotones">
             <a href="insertar.php"><span class="material-icons">add</span></a>
         </div>
@@ -35,7 +36,7 @@
                         echo '<td>' . $valor . '</td>';
                     }
 
-                    echo '<td><p><a href="confirmarBorrado.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">delete</span></a></p></td>';
+                    echo '<td><p><a href="confirmarborrado.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">delete</span></a></p></td>';
                     echo '<td><p><a href="modificar.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">edit</span></a></p></td>';
                     echo '</tr>';
                 }

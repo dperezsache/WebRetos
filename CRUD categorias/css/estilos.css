@@ -1,110 +1,97 @@
 /* David Pérez Saché */
-body
-{
+body {
     font-family: Verdana;
 }
 
-a
-{
+h1 {
+    text-align: center;
+}
+
+a {
     text-decoration: none;
     color: black;
 }
 
-a:hover
-{
+a:hover {
     color: blue;
 }
 
-.material-icons
-{
+.material-icons {
     color: navy;
 }
 
-form, p
-{
+form, p {
     background-color: azure;
     border-radius: 5px;
     border: 1px solid lightblue;
     padding: 10px;
 }
 
-form
-{
+form {
     width: 300px;
     height: 70px;
     margin: auto;
 }
 
-form input
-{
+form input {
     width: 200px;
     border: 1px solid black;
 }
 
-p
-{
+p {
     text-align: center;
     margin: 5px auto;
     width: 300px;
 }
 
-button
-{
+button {
     background-color: ghostwhite;
     border: 1px solid black;
     width: 100px;
 }
 
-button:hover
-{
+button:hover {
     color: blue;
 }
 
-table
-{
+table {
     border-collapse: collapse;
     width: 500px;
     border: 1px solid black;
     margin: auto;
 }
 
-table tbody tr td p 
-{
+table tbody tr td p  {
     width: 30px;
     padding: 5px;
 }
 
-table tbody tr td, table thead tr th
-{
+table tbody tr td, 
+table thead tr th {
     border-bottom: 1px solid black;
     padding: 10px;
     text-align: center;
 }
 
-table tbody tr:nth-child(even)
-{
+table tbody tr:nth-child(even) {
     background-color: rgb(224, 240, 255);
 }
 
-table tbody tr:nth-child(odd)
-{
+table tbody tr:nth-child(odd) {
     background-color: aliceblue;
 }
 
-p span#error
-{
+p span#error {
     color: red;
     font-weight: bold;
 }
 
-p span#exito
-{
+p span#exito {
     color: green;
     font-weight: bold;
 }
 
-div.divBotones
-{
+div.divBotones {
     background-color: azure;
     border-radius: 5px;
     border: 1px solid lightblue;
@@ -115,30 +102,17 @@ div.divBotones
     height: 24px;
 }
 
-
-form div#divForm
-{
+form div#divForm {
     text-align: center;
 }
 
-div#divConfirmar
-{
+div#divConfirmar {
     width: 350px;
     margin: auto;
     text-align: center;
     background-color: azure;
 }
 
-button#botonListado
-{
-    display: block;
-    margin: auto;
-    margin-top: 30px;
-    width: 150px;
-    height: 30px;
-}
-
-button[type="submit"]
-{
+button[type="submit"] {
     margin-top: 5px;
 }
