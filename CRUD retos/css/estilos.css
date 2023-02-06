@@ -90,7 +90,7 @@ table tbody tr td p  {
 
 table tbody tr td, 
 table thead tr th {
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     padding: 10px;
     text-align: center;
 }

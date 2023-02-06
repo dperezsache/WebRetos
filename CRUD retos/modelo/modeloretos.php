@@ -57,6 +57,81 @@
         }
 
         /**
+         * Devuelve el nombre de la categoría
+         * @param Number $id ID de la categoría a sacar.
+         * @return String Categoría.
+         */
+        public function obtenerCategoria($id)
+        {
+            try
+            {
+                $this->obtenerConexion();
+                $consulta = "SELECT nombreCategoria FROM categorias WHERE idCategoria='$id'";
+    
+                if($this->conexion != null)
+                {
+                    $datos = $this->conexion->query($consulta);
+                    $fila = $datos->fetch_array(MYSQLI_ASSOC);
+    
+                    if(isset($fila['nombreCategoria']) && !empty($fila['nombreCategoria']))
+                    {
+                        return $fila['nombreCategoria'];
+                    }
+                    else
+                    {
+                        return '';
+                    }
+                }
+                else
+                {
+                    return '';
+                }
+            }
+            catch(mysqli_sql_exception $e)
+            {
+                return '';
+            }
+        }
+
+        /**
+         * Borra un reto.
+         * @param Number $id ID del reto.
+         * @return Number Nº del resultado.
+         */
+        public function borrarReto($id)
+        {
+            try
+            {
+                $this->obtenerConexion();
+                $consulta = "DELETE FROM retos WHERE idReto='$id'";
+    
+                if($this->conexion != null)
+                {
+                    $this->conexion->query($consulta);
+    
+                    if($this->conexion->affected_rows > 0)
+                    {
+                        $this->conexion->close();
+                        return 1;
+                    }
+                    else
+                    {
+                        $this->conexion->close();
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            catch(mysqli_sql_exception $e)
+            {
+                return $e->getCode();
+            }
+        }
+
+        /**
          * Obtiene el listado de los retos.
          * @return mixed
          */

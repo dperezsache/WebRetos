@@ -1,6 +1,6 @@
 <?php
     require_once('../controlador/controladorretos.php');
-    $controlador = new ControladorCategorias();
+    $controlador = new ControladorRetos();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +13,7 @@
     </head>
     <body>
         <?php
-            $resultado = $controlador->borrarCategoria($_GET);
+            $resultado = $controlador->borrarReto($_GET);
             
             switch($resultado)
             {
@@ -22,15 +22,15 @@
                     break;
 
                 case 0:
-                    echo '<p><span id="error">Error:</span> La categoría a borrar ya no existe.</p>';
+                    echo '<p><span id="error">Error:</span> El reto a borrar ya no existe.</p>';
                     break;
 
                 case 1: // Caso OK
-                    echo '<p><span id="exito">Exito:</span> La categoría ha sido eliminada.</p>';
+                    echo '<p><span id="exito">Exito:</span> El reto ha sido eliminado.</p>';
                     break;
 
                 case 1146:
-                    echo '<p><span id="error">Error:</span> No existe la tabla categorías.</p>';
+                    echo '<p><span id="error">Error:</span> No existe la tabla de retos.</p>';
                     break;
                     
                 default:

@@ -12,7 +12,7 @@
     </head>
     <body>
         <p>
-            ¿Eliminar la categoría "<?php echo $controlador->obtenerNombreReto($_GET) ?>"?
+            ¿Eliminar el reto "<?php echo $controlador->obtenerNombreReto($_GET) ?>"?
             <br/>
             <button type="button">
                 <a href="listado.php">Cancelar</a>

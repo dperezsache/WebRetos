@@ -62,22 +62,36 @@
                 echo '<th>Fin reto</th>';
                 echo '<th>Publicación</th>';
                 echo '<th>¿Publicado?</th>';
-                echo '<th>Categoría</th>';
                 echo '<th>ID profesor</th>';
+                echo '<th>Categoría</th>';
                 echo '<th colspan="2">Operaciones</th>';
                 echo '</tr></thead><tbody>';
-                
+               
                 while($fila = $datos->fetch_array(MYSQLI_ASSOC))
                 {
                     echo '<tr>';
 
-                    foreach($fila as $valor)
+                    foreach($fila as $indice => $valor)
                     {
-                        echo '<td>' . $valor . '</td>';
+                        switch($indice)
+                        {
+                            case 'publicado':
+                                if (isset($fila['fechaPublicacion'])) echo '<td>Sí</td>';
+                                else echo '<td>No</td>';
+                                break;
+
+                            case 'idCategoria':
+                                echo '<td>' . $controlador->obtenerCategoria($valor) . '</td>';
+                                break;
+
+                            default:
+                                echo '<td>' . $valor . '</td>';
+                                break;
+                        }
                     }
 
-                    echo '<td><p><a href="confirmarborrado.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">delete</span></a></p></td>';
-                    echo '<td><p><a href="modificar.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">edit</span></a></p></td>';
+                    echo '<td><p><a href="confirmarborrado.php?id=' . $fila['idReto'] . '"><span class="material-icons">delete</span></a></p></td>';
+                    echo '<td><p><a href="modificar.php?id=' . $fila['idReto'] . '"><span class="material-icons">edit</span></a></p></td>';
                     echo '</tr>';
                 }
                 

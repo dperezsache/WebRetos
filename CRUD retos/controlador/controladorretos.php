@@ -33,6 +33,33 @@
         }
 
         /**
+         * Devuelve la categoría indicada.
+         * @param Number $id ID de la categoría.
+         * @return String Categoría.
+         */
+        public function obtenerCategoria($id)
+        {
+            return $this->modelo->obtenerCategoria($id);
+        }
+
+        /**
+         * Elimina un reto.
+         * @param Array $array Array de datos.
+         * @return Number Nº del código de error o éxito.
+         */
+        public function borrarReto($array)
+        {
+            if(isset($array['id']))
+            {
+                return $this->modelo->borrarReto($array['id']);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        /**
          * Sacar el nombre del reto.
          * @param Array $array Array de datos.
          * @return String Nombre del reto.
@@ -102,7 +129,7 @@
                 if (!empty($array['fechaFinReto'])) $contador++;
                 else return -8; // Error fecha fin reto vacía
             }
-            echo '<p>' . $contador . '</p>';
+
             if($contador == 7)
             {
                 return $this->modelo->altaReto($array);
