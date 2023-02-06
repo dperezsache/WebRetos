@@ -101,11 +101,11 @@
                     break;
 
                 case 1: // Caso OK
-                    echo '<p><span id="exito">Exito:</span> La categoría ha sido añadida.</p>';
+                    echo '<p><span id="exito">Exito:</span> El reto ha sido añadido.</p>';
                     break;
 
                 case 1062:
-                    echo '<p><span id="error">Error:</span> La categoría que has introducido ya existe.</p>';
+                    echo '<p><span id="error">Error:</span> El reto que has introducido ya existe.</p>';
                     break;
 
                 case 1136:
@@ -113,7 +113,7 @@
                     break;
 
                 case 1146:
-                    echo '<p><span id="error">Error:</span> No existe la tabla categorías.</p>';
+                    echo '<p><span id="error">Error:</span> No existe la tabla de retos.</p>';
                     break;
 
                 default:

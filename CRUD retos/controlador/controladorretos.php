@@ -15,12 +15,20 @@
         }
 
         /**
-         * Devuelve si hay listado de retos o no.
+         * Devuelve si hay listado de retos, o si se va hacer una búsqueda.
+         * @param Array $array Array de datos.
          * @return Number Nº del código de error o éxito.
          */
-        public function hayListado()
+        public function hayListado($array)
         {
-            return $this->modelo->listadoRetos();
+            if(isset($array['busqueda']) && !empty($array['busqueda']))
+            {
+                return $this->modelo->listadoBusqueda($array['busqueda']);
+            }
+            else
+            {
+                return $this->modelo->listadoRetos();
+            }
         }
 
         /**

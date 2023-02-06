@@ -34,6 +34,20 @@ form {
     padding: 10px;
 }
 
+form#formBusqueda {
+    width: 300px;
+    height: 65px;
+    margin-bottom: 10px;
+}
+
+form#formBusqueda label {
+    margin-top: 0;
+}
+
+form#formBusqueda div {
+    text-align: center;
+}
+
 textarea {
     resize: none;
 }

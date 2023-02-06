@@ -94,6 +94,47 @@
         }
 
         /**
+         * Devuelve el listado de los retos encontrados.
+         * @param String $busqueda Nombre de el/los reto/s a buscar.
+         * @return Number Código éxito/error.
+         */
+        public function listadoBusqueda($busqueda)
+        {
+            try
+            {
+                $this->obtenerConexion();
+                $consulta = "SELECT * FROM retos WHERE nombreReto LIKE '%$busqueda%'";
+    
+                if($this->conexion != null)
+                {
+                    $datos = $this->conexion->query($consulta);
+    
+                    if($datos->num_rows > 0)
+                    {
+                        $this->conexion->close();
+                        $this->listaRetos = $datos;
+                        return 1;
+                    }
+                    else
+                    {
+                        $this->conexion->close();
+                        $this->listaRetos = null;
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            catch(mysqli_sql_exception $e)
+            {
+                $this->listaRetos = null;
+                return $e->getCode();
+            }
+        }
+
+        /**
          * Borra un reto.
          * @param Number $id ID del reto.
          * @return Number Nº del resultado.
@@ -133,7 +174,7 @@
 
         /**
          * Obtiene el listado de los retos.
-         * @return mixed
+         * @return Number Código éxito/error.
          */
         public function listadoRetos()
         {

@@ -16,8 +16,19 @@
         <div class="divBotones">
             <a href="insertar.php"><span class="material-icons">add</span></a>
         </div>
+
+        <form method="POST" action="" id="formBusqueda">
+            <label for="busqueda">
+                Buscar por nombre de reto <input type="text" name="busqueda"/>
+            </label>
+            <div>
+                <button type="reset">Cancelar</button>
+                <button type="submit">Buscar</button>
+            </div>
+        </form>
+
         <?php
-            $resultado = $controlador->hayListado();
+            $resultado = $controlador->hayListado($_POST);
             
             switch($resultado)
             {
@@ -50,52 +61,55 @@
             {
                 $datos = $controlador->obtenerListado();
 
-                echo '<div id="divTabla">';
-                echo '<table><thead><tr>';
-                echo '<th>ID</th>';
-                echo '<th>Reto</th>';
-                echo '<th>Dirigido a</th>';
-                echo '<th>Descripción</th>';
-                echo '<th>Inicio inscripción</th>';
-                echo '<th>Fin inscripción</th>';
-                echo '<th>Inicio reto</th>';
-                echo '<th>Fin reto</th>';
-                echo '<th>Publicación</th>';
-                echo '<th>¿Publicado?</th>';
-                echo '<th>ID profesor</th>';
-                echo '<th>Categoría</th>';
-                echo '<th colspan="2">Operaciones</th>';
-                echo '</tr></thead><tbody>';
-               
-                while($fila = $datos->fetch_array(MYSQLI_ASSOC))
+                if($datos != null)
                 {
-                    echo '<tr>';
-
-                    foreach($fila as $indice => $valor)
-                    {
-                        switch($indice)
-                        {
-                            case 'publicado':
-                                if (isset($fila['fechaPublicacion'])) echo '<td>Sí</td>';
-                                else echo '<td>No</td>';
-                                break;
-
-                            case 'idCategoria':
-                                echo '<td>' . $controlador->obtenerCategoria($valor) . '</td>';
-                                break;
-
-                            default:
-                                echo '<td>' . $valor . '</td>';
-                                break;
-                        }
-                    }
-
-                    echo '<td><p><a href="confirmarborrado.php?id=' . $fila['idReto'] . '"><span class="material-icons">delete</span></a></p></td>';
-                    echo '<td><p><a href="modificar.php?id=' . $fila['idReto'] . '"><span class="material-icons">edit</span></a></p></td>';
-                    echo '</tr>';
-                }
+                    echo '<div id="divTabla">';
+                    echo '<table><thead><tr>';
+                    echo '<th>ID</th>';
+                    echo '<th>Reto</th>';
+                    echo '<th>Dirigido a</th>';
+                    echo '<th>Descripción</th>';
+                    echo '<th>Inicio inscripción</th>';
+                    echo '<th>Fin inscripción</th>';
+                    echo '<th>Inicio reto</th>';
+                    echo '<th>Fin reto</th>';
+                    echo '<th>Publicación</th>';
+                    echo '<th>¿Publicado?</th>';
+                    echo '<th>ID profesor</th>';
+                    echo '<th>Categoría</th>';
+                    echo '<th colspan="2">Operaciones</th>';
+                    echo '</tr></thead><tbody>';
                 
-                echo '</tbody></table></div>';
+                    while($fila = $datos->fetch_array(MYSQLI_ASSOC))
+                    {
+                        echo '<tr>';
+
+                        foreach($fila as $indice => $valor)
+                        {
+                            switch($indice)
+                            {
+                                case 'publicado':
+                                    if (isset($fila['fechaPublicacion'])) echo '<td>Sí</td>';
+                                    else echo '<td>No</td>';
+                                    break;
+
+                                case 'idCategoria':
+                                    echo '<td>' . $controlador->obtenerCategoria($valor) . '</td>';
+                                    break;
+
+                                default:
+                                    echo '<td>' . $valor . '</td>';
+                                    break;
+                            }
+                        }
+
+                        echo '<td><p><a href="confirmarborrado.php?id=' . $fila['idReto'] . '"><span class="material-icons">delete</span></a></p></td>';
+                        echo '<td><p><a href="modificar.php?id=' . $fila['idReto'] . '"><span class="material-icons">edit</span></a></p></td>';
+                        echo '</tr>';
+                    }
+                    
+                    echo '</tbody></table></div>';
+                }
             }
         ?>
         <div class="divBotones">
