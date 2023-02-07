@@ -9,7 +9,7 @@
 		<meta name="author" content="David Pérez Saché"/>
         <link rel="stylesheet" type="text/css" href="../css/estilos.css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-		<title>Añadir categorías</title>
+		<title>Añadir reto</title>
     </head>
     <body>
         <h2>Insertar reto</h2>

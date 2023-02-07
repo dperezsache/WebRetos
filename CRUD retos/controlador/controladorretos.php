@@ -236,7 +236,28 @@
 
                 if($contador == 7)
                 {
-                    return $this->modelo->modificarReto($arrayGet, $arrayPost);
+                    $contador = 0;
+    
+                    $fechaInicioInscripcion = new DateTime($arrayPost['fechaInicioIns']);
+                    $fechaFinInscripcion = new DateTime($arrayPost['fechaFinIns']);
+                    $fechaInicioReto = new DateTime($arrayPost['fechaInicioReto']);
+                    $fechaFinReto = new DateTime($arrayPost['fechaFinReto']);
+                    $fechaActual = new DateTime('now');
+    
+                    if ($fechaInicioInscripcion <= $fechaFinInscripcion && $fechaInicioInscripcion >= $fechaActual && $fechaInicioReto >= $fechaInicioInscripcion) $contador++;
+                    else return -11;    // Error fecha inicio inscripción incorrecta.
+    
+                    if ($fechaInicioInscripcion <= $fechaFinInscripcion) $contador++;
+                    else return -12;    // Error fecha fin inscripción incorrecta.
+    
+                    if ($fechaInicioReto <= $fechaFinReto && $fechaInicioReto >= $fechaInicioInscripcion) $contador++;
+                    else return -13;    // Error fecha inicio reto incorrecta.
+    
+                    if ($fechaInicioReto <= $fechaFinReto) $contador++;
+                    else return -14;    // Error fecha fin reto incorrecta.
+    
+                    if ($contador == 4)
+                        return $this->modelo->modificarReto($arrayGet, $arrayPost);
                 }
                 else
                 {
