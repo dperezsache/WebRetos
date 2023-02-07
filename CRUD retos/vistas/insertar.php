@@ -13,7 +13,7 @@
     </head>
     <body>
         <h2>Insertar reto</h2>
-        <form action="" method="post"/>
+        <form action="" method="post">
             <div id="divForm">
                 <label for="nombre">
                     Nombre reto <input type="text" name="nombre" maxlength="100"/>
@@ -60,11 +60,30 @@
             </div>
         </form>
         <?php
-            print_r($_POST);
             $resultado = $controlador->altaReto($_POST);
             
             switch($resultado)
             {
+                case -13:
+                    echo '<p><span id="error">Error:</span> Fecha de fin de reto incorrecta.</p>';
+                    break;
+
+                case -12:
+                    echo '<p><span id="error">Error:</span> Fecha de inicio de reto incorrecta.</p>';
+                    break;
+    
+                case -11:
+                    echo '<p><span id="error">Error:</span> Fecha de fin de inscripción incorrecta.</p>';
+                    break;
+
+                case -10:
+                    echo '<p><span id="error">Error:</span> Fecha de inicio de inscripción incorrecta.</p>';
+                    break;
+
+                case -9:
+                    echo '<p><span id="error">Error:</span> No has introducido descripción.</p>';
+                    break;
+
                 case -8:
                     echo '<p><span id="error">Error:</span> No has introducido fecha de fin de reto.</p>';
                     break;

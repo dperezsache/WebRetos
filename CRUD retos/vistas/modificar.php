@@ -1,6 +1,7 @@
 <?php
     require_once('../controlador/controladorretos.php');
-    $controlador = new ControladorCategorias();
+    $controlador = new ControladorRetos();
+    $datos = $controlador->obtenerReto($_GET);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -9,27 +10,101 @@
 		<meta name="author" content="David Pérez Saché"/>
         <link rel="stylesheet" type="text/css" href="../css/estilos.css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-		<title>Modificar categorías</title>
+		<title>Modificar retos</title>
     </head>
     <body>
-        <h2>Modificar categoría</h2>
+        <h2>Modificar reto</h2>
         <form action="" method="post">
             <div id="divForm">
                 <label for="nombre">
-                    Nuevo nombre de categoría <input type="text" name="nombre" value="<?php echo $controlador->obtenerNombreCategoria($_GET) ?>"/>
+                    Nombre reto <input type="text" name="nombre" maxlength="100" value="<?php echo $datos!=null ? $datos['nombreReto'] : '' ?>"/>
                 </label>
-                <br/>
-                <button type="reset">Borrar</button>
-                <button type="submit">Modificar</button>
+
+                <label for="dirigido">
+                    Dirigido a <input type="text" name="dirigido" maxlength="100" value="<?php echo $datos!=null ? $datos['dirigido'] : '' ?>"/>
+                </label>
+                
+                <label for="categoria">
+                    Categoría
+                    <select name="categoria">
+                        <?php
+                            $categorias = $controlador->obtenerCategorias();
+                            while($fila = $categorias->fetch_array(MYSQLI_ASSOC))
+                            {
+                                if($fila['idCategoria'] == $datos['idCategoria'])
+                                {
+                                    echo '<option selected value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                                }
+                                else
+                                {
+                                    echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                                }
+                            }
+                        ?>
+                    </select>
+                </label>
+
+                <label for="fechaInicioIns">
+                    Fecha inicio de inscripción <input type="datetime-local" name="fechaInicioIns" value="<?php echo $datos!=null ? $datos['fechaInicioInscripcion'] : '' ?>"/>
+                </label>
+
+                <label for="fechaFinIns">
+                    Fecha fin de inscripción <input type="datetime-local" name="fechaFinIns" value="<?php echo $datos!=null ? $datos['fechaFinInscripcion'] : '' ?>"/>
+                </label>
+
+                <label for="fechaInicioReto">
+                    Fecha inicio del reto <input type="datetime-local" name="fechaInicioReto" value="<?php echo $datos!=null ? $datos['fechaInicioReto'] : '' ?>"/>
+                </label>
+
+                <label for="fechaFinReto">
+                    Fecha fin del reto <input type="datetime-local" name="fechaFinReto" value="<?php echo $datos!=null ? $datos['fechaFinReto'] : '' ?>"/>
+                </label>
+                
+                <label for="descReto">
+                    Descripción <textarea rows="8" name="descReto"><?php echo $datos!=null ? $datos['descripcion'] : '' ?></textarea>
+                </label>
+                
+                <div id="divBotones">
+                    <button type="reset">Cancelar</button>
+                    <button type="submit">Modificar</button>
+                </div>
             </div>
         </form>
         <?php
-            $resultado = $controlador->modificarCategoria($_GET, $_POST);
+            $resultado = $controlador->modificarReto($_GET, $_POST);
             
             switch($resultado)
             {
+                case -9:
+                    echo '<p><span id="error">Error:</span> No has selecionado un reto.</p>';
+                    break;
+
+                case -8:
+                    echo '<p><span id="error">Error:</span> No has introducido fecha de fin de reto.</p>';
+                    break;
+
+                case -7:
+                    echo '<p><span id="error">Error:</span> No has introducido fecha de inicio de reto.</p>';
+                    break;
+    
+                case -6:
+                    echo '<p><span id="error">Error:</span> No has introducido fecha de fin de inscripción.</p>';
+                    break;
+
+                case -5:
+                    echo '<p><span id="error">Error:</span> No has introducido fecha de inicio de inscripción.</p>';
+                    break;
+
+                case -4:
+                    echo '<p><span id="error">Error:</span> No has introducido descripción.</p>';
+                    break;
+
+                case -3:
+                    echo '<p><span id="error">Error:</span> No has introducido a quien va dirigido el reto.</p>';
+                    break;
+
                 case -2:
-                    echo '<p><span id="error">Error:</span> Introduciste nombre de categoría en blanco.</p>';
+                    echo '<p><span id="error">Error:</span> Nombre de reto en blanco.</p>';
                     break;
 
                 case -1:

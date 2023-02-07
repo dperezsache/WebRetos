@@ -13,8 +13,13 @@
     </head>
     <body>
         <h2>Web de Retos - CRUD de retos</h2>
-        <div class="divBotones">
-            <a href="insertar.php"><span class="material-icons">add</span></a>
+        <div class="wrapperBotones">
+            <div class="divBotones">
+                <a href="insertar.php"><span class="material-icons">add</span></a>
+            </div>
+            <div class="divBotones">
+                <a href="modificar.php"><span class="material-icons">edit</span></a>
+            </div>
         </div>
 
         <form method="POST" action="" id="formBusqueda">
@@ -112,8 +117,13 @@
                 }
             }
         ?>
-        <div class="divBotones">
-            <a href="insertar.php"><span class="material-icons">add</span></a>
+        <div class="wrapperBotones">
+            <div class="divBotones">
+                <a href="insertar.php"><span class="material-icons">add</span></a>
+            </div>
+            <div class="divBotones">
+                <a href="modificar.php"><span class="material-icons">edit</span></a>
+            </div>
         </div>
     </body>
 </html>

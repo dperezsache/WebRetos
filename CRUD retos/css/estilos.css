@@ -34,17 +34,20 @@ form {
     padding: 10px;
 }
 
-form#formBusqueda {
+form#formBusqueda,
+form#formBorrar {
     width: 300px;
     height: 65px;
     margin-bottom: 10px;
 }
 
-form#formBusqueda label {
+form#formBusqueda label,
+form#formBorrar label {
     margin-top: 0;
 }
 
-form#formBusqueda div {
+form#formBusqueda div,
+form#formBorrar div {
     text-align: center;
 }
 
@@ -130,6 +133,15 @@ p span#exito {
     color: green;
     font-weight: bold;
 }
+
+div.wrapperBotones {
+    text-align: center;
+    margin: 10px 0;
+}
+
+div.wrapperBotones div {
+    display: inline-block;
+}    
 
 div.divBotones {
     background-color: azure;

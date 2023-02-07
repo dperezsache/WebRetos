@@ -250,6 +250,43 @@
         }
 
         /**
+         * Obtiene el reto.
+         * @param Number $id ID del reto.
+         * @return mixed Datos del reto.
+         */
+        public function obtenerReto($id)
+        {
+            try
+            {
+                $this->obtenerConexion();
+                $consulta = "SELECT * FROM retos WHERE idReto='$id'";
+    
+                if($this->conexion != null)
+                {
+                    $datos = $this->conexion->query($consulta);
+
+                    if($datos != null)
+                    {
+                        $fila = $datos->fetch_array(MYSQLI_ASSOC);
+                        return $fila;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch(mysqli_sql_exception $e)
+            {
+                return null;
+            }
+        }
+
+        /**
          * Añade un reto.
          * @param Array $array Array de datos.
          * @return Number Nº del código de error o éxito.
@@ -261,6 +298,57 @@
                 $this->obtenerConexion();
                 $consulta = "INSERT INTO retos(nombreReto, dirigido, descripcion, fechaInicioInscripcion, fechaFinInscripcion, fechaInicioReto, fechaFinReto, fechaPublicacion, publicado, idProfesor, idCategoria) 
                             VALUES('" . $array['nombre'] . "','" . $array['dirigido'] . "','" . $array['descReto'] . "','" . $array['fechaInicioIns'] . "','" . $array['fechaFinIns'] . "','" . $array['fechaInicioReto'] . "','" . $array['fechaFinReto']. "','" . '31-12-23 12:30:50' . "'," . 0 . "," . 1 . "," . $array['categoria'] . ");";
+
+                if($this->conexion != null)
+                {
+                    $this->conexion->query($consulta);
+    
+                    if($this->conexion->affected_rows > 0)
+                    {
+                        $this->conexion->close();
+                        return 1;
+                    }
+                    else
+                    {
+                        $this->conexion->close();
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            catch(mysqli_sql_exception $e)
+            {
+                return $e->getCode();
+            }
+        }
+
+        /**
+         * Modifica un reto.
+         * @param Array $arrayGet Array de datos.
+         * @param Array $arrayPost Array de datos.
+         * @return Number Nº del código de error o éxito.
+         */
+        public function modificarReto($arrayGet, $arrayPost)
+        {
+            try
+            {
+                $this->obtenerConexion();
+                $consulta = "UPDATE retos 
+                            SET nombreReto='" . $arrayPost['nombre'] . "', 
+                            dirigido='" . $arrayPost['dirigido'] . "', 
+                            descripcion='" . $arrayPost['descReto'] . "', 
+                            fechaInicioInscripcion='" . $arrayPost['fechaInicioIns'] . "', 
+                            fechaFinInscripcion='" . $arrayPost['fechaFinIns'] . "', 
+                            fechaInicioReto='" . $arrayPost['fechaInicioReto'] . "', 
+                            fechaFinReto='" . $arrayPost['fechaFinReto'] . "', 
+                            fechaPublicacion='31-12-23 12:30:50', 
+                            publicado=1, 
+                            idProfesor=1, 
+                            idCategoria=" . $arrayPost['categoria'] . 
+                            " WHERE idReto=" . $arrayGet['id'];
 
                 if($this->conexion != null)
                 {

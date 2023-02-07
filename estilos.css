@@ -1,0 +1,32 @@
+body {
+    font-family: Arial;
+}
+
+button {
+    width: 175px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    border-radius: 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+a {
+    text-decoration: none;
+    color: darkblue;
+}
+
+a:hover {
+    color: blue;
+}
+
+div#divPanel {
+    width: 60%;
+    min-width: 500px;
+    margin: auto;
+    text-align: center;
+    background-color: aquamarine;
+    padding: 10px;
+    border: 1px solid rgb(1, 134, 90);
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

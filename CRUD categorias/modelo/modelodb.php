@@ -1,6 +1,6 @@
 <?php
-    require_once('../config/configuracion.php');
-    require_once('../config/configuraciondb.php');
+    require_once('../../config/configuraciondb.php');
+    require_once('../../config/configuracion.php');
 
     /**
      * Clase ModeloDB.
