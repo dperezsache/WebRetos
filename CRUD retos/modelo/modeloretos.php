@@ -28,20 +28,22 @@
             try
             {
                 $this->obtenerConexion();
-                $consulta = 'SELECT * FROM categorias ORDER BY idCategoria ASC';
 
                 if($this->conexion != null)
                 {
-                    $datos = $this->conexion->query($consulta);
+                    $consulta = $this->conexion->prepare('SELECT * FROM categorias ORDER BY idCategoria ASC');
+                    $consulta->execute();
+                    $resultado = $consulta->get_result();
 
-                    if($datos->num_rows > 0)
+                    $consulta->close();
+                    $this->conexion->close();
+
+                    if($resultado->num_rows > 0)
                     {
-                        $this->conexion->close();
-                        return $datos;
+                        return $resultado;
                     }
                     else
                     {
-                        $this->conexion->close();
                         return null;
                     }
                 }
@@ -66,20 +68,29 @@
             try
             {
                 $this->obtenerConexion();
-                $consulta = "SELECT nombreCategoria FROM categorias WHERE idCategoria='$id'";
-    
+                
                 if($this->conexion != null)
                 {
-                    $datos = $this->conexion->query($consulta);
-                    $fila = $datos->fetch_array(MYSQLI_ASSOC);
-    
-                    if(isset($fila['nombreCategoria']) && !empty($fila['nombreCategoria']))
+                    $consulta = $this->conexion->prepare("SELECT nombreCategoria FROM categorias WHERE idCategoria=?");
+                    $consulta->bind_param('i', $id);
+                    $consulta->execute();
+                    $resultado = $consulta->get_result();
+
+                    $consulta->close();
+                    $this->conexion->close();
+
+                    if($resultado->num_rows > 0)
                     {
-                        return $fila['nombreCategoria'];
-                    }
-                    else
-                    {
-                        return '';
+                        $fila = $resultado->fetch_assoc();
+        
+                        if(isset($fila['nombreCategoria']) && !empty($fila['nombreCategoria']))
+                        {
+                            return $fila['nombreCategoria'];
+                        }
+                        else
+                        {
+                            return '';
+                        }
                     }
                 }
                 else
@@ -103,21 +114,24 @@
             try
             {
                 $this->obtenerConexion();
-                $consulta = "SELECT * FROM retos WHERE nombreReto LIKE '%$busqueda%'";
-    
+                
                 if($this->conexion != null)
                 {
-                    $datos = $this->conexion->query($consulta);
+                    $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE nombreReto LIKE %?%");
+                    $consulta->bind_param('s', $busqueda);
+                    $consulta->execute();
+                    $resultado = $consulta->get_result();
     
-                    if($datos->num_rows > 0)
+                    $consulta->close();
+                    $this->conexion->close();
+
+                    if($resultado->num_rows > 0)
                     {
-                        $this->conexion->close();
-                        $this->listaRetos = $datos;
+                        $this->listaRetos = $resultado;
                         return 1;
                     }
                     else
                     {
-                        $this->conexion->close();
                         $this->listaRetos = null;
                         return 0;
                     }
@@ -144,20 +158,23 @@
             try
             {
                 $this->obtenerConexion();
-                $consulta = "DELETE FROM retos WHERE idReto='$id'";
-    
+                
                 if($this->conexion != null)
                 {
-                    $this->conexion->query($consulta);
-    
-                    if($this->conexion->affected_rows > 0)
+                    $consulta = $this->conexion->prepare("DELETE FROM retos WHERE idReto=?");
+                    $consulta->bind_param('i', $id);
+                    $consulta->execute();
+                    $resultado = $consulta->get_result();
+
+                    $consulta->close();
+                    $this->conexion->close();
+
+                    if($resultado->affected_rows > 0)
                     {
-                        $this->conexion->close();
                         return 1;
                     }
                     else
                     {
-                        $this->conexion->close();
                         return 0;
                     }
                 }
@@ -181,21 +198,23 @@
             try
             {
                 $this->obtenerConexion();
-                $consulta = 'SELECT * FROM retos ORDER BY idReto ASC';
-    
+                
                 if($this->conexion != null)
                 {
-                    $datos = $this->conexion->query($consulta);
-    
-                    if($datos->num_rows > 0)
+                    $consulta = $this->conexion->prepare('SELECT * FROM retos ORDER BY idReto ASC');
+                    $consulta->execute();
+                    $resultado = $consulta->get_result();
+
+                    $consulta->close();
+                    $this->conexion->close();
+                    
+                    if($resultado->num_rows > 0)
                     {
-                        $this->conexion->close();
-                        $this->listaRetos = $datos;
+                        $this->listaRetos = $resultado;
                         return 1;
                     }
                     else
                     {
-                        $this->conexion->close();
                         $this->listaRetos = null;
                         return 0;
                     }
@@ -222,16 +241,30 @@
             try
             {
                 $this->obtenerConexion();
-                $consulta = "SELECT nombreReto FROM retos WHERE idReto='$id'";
-    
+                
                 if($this->conexion != null)
                 {
-                    $datos = $this->conexion->query($consulta);
-                    $fila = $datos->fetch_array(MYSQLI_ASSOC);
-    
-                    if(isset($fila['nombreReto']) && !empty($fila['nombreReto']))
+                    $consulta = $this->conexion->prepare("SELECT nombreReto FROM retos WHERE idReto=?");
+                    $consulta->bind_param('i', $id);
+                    $consulta->execute();
+                    $resultado = $consulta->get_result();
+
+                    $consulta->close();
+                    $this->conexion->close();
+
+                    if($resultado->num_rows > 0)
                     {
-                        return $fila['nombreReto'];
+                        $resultado = $this->conexion->query($consulta);
+                        $fila = $resultado->fetch_assoc();
+        
+                        if(isset($fila['nombreReto']) && !empty($fila['nombreReto']))
+                        {
+                            return $fila['nombreReto'];
+                        }
+                        else
+                        {
+                            return '';
+                        }
                     }
                     else
                     {
@@ -259,15 +292,20 @@
             try
             {
                 $this->obtenerConexion();
-                $consulta = "SELECT * FROM retos WHERE idReto='$id'";
     
                 if($this->conexion != null)
                 {
-                    $datos = $this->conexion->query($consulta);
+                    $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE idReto=?");
+                    $consulta->bind_param('i', $id);
+                    $consulta->execute();
+                    $resultado = $consulta->get_result();
 
-                    if($datos != null)
+                    $consulta->close();
+                    $this->conexion->close();
+                    
+                    if($resultado != null)
                     {
-                        $fila = $datos->fetch_array(MYSQLI_ASSOC);
+                        $fila = $resultado->fetch_assoc();
                         return $fila;
                     }
                     else
@@ -296,21 +334,35 @@
             try
             {
                 $this->obtenerConexion();
-                $consulta = "INSERT INTO retos(nombreReto, dirigido, descripcion, fechaInicioInscripcion, fechaFinInscripcion, fechaInicioReto, fechaFinReto, fechaPublicacion, publicado, idProfesor, idCategoria) 
-                            VALUES('" . $array['nombre'] . "','" . $array['dirigido'] . "','" . $array['descReto'] . "','" . $array['fechaInicioIns'] . "','" . $array['fechaFinIns'] . "','" . $array['fechaInicioReto'] . "','" . $array['fechaFinReto']. "','" . '31-12-23 12:30:50' . "'," . 0 . "," . 1 . "," . $array['categoria'] . ");";
-
+                
                 if($this->conexion != null)
                 {
-                    $this->conexion->query($consulta);
-    
-                    if($this->conexion->affected_rows > 0)
+                    $nombre = $array['nombre'];
+                    $dirigido = $array['dirigido'];
+                    $descripcion = $array['descReto'];
+                    $fechaInicioInscripcion = $array['fechaInicioIns'];
+                    $fechaFinInscripcion = $array['fechaFinIns'];
+                    $fechaInicioReto = $array['fechaInicioReto'];
+                    $fechaFinReto = $array['fechaFinReto'];
+                    $fechaPublicacion = '31-12-23 12:30:50';
+                    $publicado = 1;
+                    $idProfesor = 1;
+                    $idCategoria = $array['categoria'];
+
+                    $consulta = $this->conexion->prepare("INSERT INTO retos(nombreReto, dirigido, descripcion, fechaInicioInscripcion, fechaFinInscripcion, fechaInicioReto, fechaFinReto, fechaPublicacion, publicado, idProfesor, idCategoria) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+                    $consulta->bind_param('ssssssssiii', $nombre, $dirigido, $descripcion, $fechaInicioInscripcion, $fechaFinInscripcion, $fechaInicioReto, $fechaFinReto, $fechaPublicacion, $publicado, $idProfesor, $idCategoria);
+                    $consulta->execute();
+                    $resultado = $consulta->get_result();
+
+                    $consulta->close();
+                    $this->conexion->close();
+
+                    if($resultado->affected_rows > 0)
                     {
-                        $this->conexion->close();
                         return 1;
                     }
                     else
                     {
-                        $this->conexion->close();
                         return 0;
                     }
                 }
@@ -336,32 +388,36 @@
             try
             {
                 $this->obtenerConexion();
-                $consulta = "UPDATE retos 
-                            SET nombreReto='" . $arrayPost['nombre'] . "', 
-                            dirigido='" . $arrayPost['dirigido'] . "', 
-                            descripcion='" . $arrayPost['descReto'] . "', 
-                            fechaInicioInscripcion='" . $arrayPost['fechaInicioIns'] . "', 
-                            fechaFinInscripcion='" . $arrayPost['fechaFinIns'] . "', 
-                            fechaInicioReto='" . $arrayPost['fechaInicioReto'] . "', 
-                            fechaFinReto='" . $arrayPost['fechaFinReto'] . "', 
-                            fechaPublicacion='31-12-23 12:30:50', 
-                            publicado=1, 
-                            idProfesor=1, 
-                            idCategoria=" . $arrayPost['categoria'] . 
-                            " WHERE idReto=" . $arrayGet['id'];
 
                 if($this->conexion != null)
                 {
-                    $this->conexion->query($consulta);
+                    $nombre = $arrayPost['nombre'];
+                    $dirigido = $arrayPost['dirigido'];
+                    $descripcion = $arrayPost['descReto'];
+                    $fechaInicioInscripcion = $arrayPost['fechaInicioIns'];
+                    $fechaFinInscripcion = $arrayPost['fechaFinIns'];
+                    $fechaInicioReto = $arrayPost['fechaInicioReto'];
+                    $fechaFinReto = $arrayPost['fechaFinReto'];
+                    $fechaPublicacion = '31-12-23 12:30:50';
+                    $publicado = 1;
+                    $idProfesor = 1;
+                    $idCategoria = $arrayPost['categoria'];
+                    $idReto = $arrayGet['id'];
+
+                    $consulta = $this->conexion->prepare("UPDATE retos SET nombreReto=?, dirigido=?, descripcion=?, fechaInicioInscripcion=?, fechaFinInscripcion=?, fechaInicioReto=?, fechaFinReto=?, fechaPublicacion=?, publicado=?, idProfesor=?, idCategoria=? WHERE idReto=?");
+                    $consulta->bind_param('ssssssssiiii', $nombre, $dirigido, $descripcion, $fechaInicioInscripcion, $fechaFinInscripcion, $fechaInicioReto, $fechaFinReto, $fechaPublicacion, $publicado, $idProfesor, $idCategoria, $idReto);
+                    $consulta->execute();
+                    $resultado = $consulta->get_result();
     
-                    if($this->conexion->affected_rows > 0)
+                    $consulta->close();
+                    $this->conexion->close();
+    
+                    if($resultado->affected_rows > 0)
                     {
-                        $this->conexion->close();
                         return 1;
                     }
                     else
                     {
-                        $this->conexion->close();
                         return 0;
                     }
                 }

@@ -13,13 +13,8 @@
     </head>
     <body>
         <h2>Web de Retos - CRUD de retos</h2>
-        <div class="wrapperBotones">
-            <div class="divBotones">
-                <a href="insertar.php"><span class="material-icons">add</span></a>
-            </div>
-            <div class="divBotones">
-                <a href="modificar.php"><span class="material-icons">edit</span></a>
-            </div>
+        <div class="divBotones">
+            <a href="insertar.php"><span class="material-icons">add</span></a>
         </div>
 
         <form method="POST" action="" id="formBusqueda">
@@ -31,99 +26,92 @@
                 <button type="submit">Buscar</button>
             </div>
         </form>
-
-        <?php
-            $resultado = $controlador->hayListado($_POST);
-            
-            switch($resultado)
-            {
-                case -1:
-                    echo '<p><span id="error">Error:</span> No hay conexión con la base de datos.</p>';
-                    break;
-
-                case 0:
-                    echo '<p>No hay datos que mostrar.</p>';
-                    break;
-
-                case 1: // Caso OK
-                    cargar($controlador);
-                    break;
-
-                case 1146:
-                    echo '<p><span id="error">Error:</span> No existe la tabla retos.</p>';
-                    break;
-
-                default:
-                    echo '<p>Se ha producido un error con código: <b>' . $resultado . '</b>.</p>';
-                    break;
-            }
-
-            /**
-             * Carga el listado con los retos.
-             * @param ControladorRetos $controlador Controlador de retos.
-             */
-            function cargar($controlador)
-            {
-                $datos = $controlador->obtenerListado();
-
-                if($datos != null)
-                {
-                    echo '<div id="divTabla">';
-                    echo '<table><thead><tr>';
-                    echo '<th>ID</th>';
-                    echo '<th>Reto</th>';
-                    echo '<th>Dirigido a</th>';
-                    echo '<th>Descripción</th>';
-                    echo '<th>Inicio inscripción</th>';
-                    echo '<th>Fin inscripción</th>';
-                    echo '<th>Inicio reto</th>';
-                    echo '<th>Fin reto</th>';
-                    echo '<th>Publicación</th>';
-                    echo '<th>¿Publicado?</th>';
-                    echo '<th>ID profesor</th>';
-                    echo '<th>Categoría</th>';
-                    echo '<th colspan="2">Operaciones</th>';
-                    echo '</tr></thead><tbody>';
-                
-                    while($fila = $datos->fetch_array(MYSQLI_ASSOC))
+        <div id="divTabla">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Reto</th>
+                        <th>Dirigido a</th>
+                        <th>Descripción</th>
+                        <th>Inicio inscripción</th>
+                        <th>Fin inscripción</th>
+                        <th>Inicio reto</th>
+                        <th>Fin reto</th>
+                        <th>Publicación</th>
+                        <th>¿Publicado?</th>
+                        <th>ID profesor</th>
+                        <th>Categoría</th>
+                        <th colspan="2">Operaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    $resultado = $controlador->hayListado($_POST);
+                    
+                    switch($resultado)
                     {
-                        echo '<tr>';
+                        case -1:
+                            echo '<p><span id="error">Error:</span> No hay conexión con la base de datos.</p>';
+                            break;
 
-                        foreach($fila as $indice => $valor)
+                        case 0:
+                            echo '<p>No hay datos que mostrar.</p>';
+                            break;
+
+                        case 1: // Caso OK
+                            break;
+
+                        case 1146:
+                            echo '<p><span id="error">Error:</span> No existe la tabla retos.</p>';
+                            break;
+
+                        default:
+                            echo '<p>Se ha producido un error con código: <b>' . $resultado . '</b>.</p>';
+                            break;
+                    }
+
+                    if($resultado == 1)
+                    {
+                        $datos = $controlador->obtenerListado();
+
+                        if($datos != null)
                         {
-                            switch($indice)
+                            while($fila = $datos->fetch_array(MYSQLI_ASSOC))
                             {
-                                case 'publicado':
-                                    if (isset($fila['fechaPublicacion'])) echo '<td>Sí</td>';
-                                    else echo '<td>No</td>';
-                                    break;
+                                echo '<tr>';
 
-                                case 'idCategoria':
-                                    echo '<td>' . $controlador->obtenerCategoria($valor) . '</td>';
-                                    break;
+                                foreach($fila as $indice => $valor)
+                                {
+                                    switch($indice)
+                                    {
+                                        case 'publicado':
+                                            if (isset($fila['fechaPublicacion'])) echo '<td>Sí</td>';
+                                            else echo '<td>No</td>';
+                                            break;
 
-                                default:
-                                    echo '<td>' . $valor . '</td>';
-                                    break;
+                                        case 'idCategoria':
+                                            echo '<td>' . $controlador->obtenerCategoria($valor) . '</td>';
+                                            break;
+
+                                        default:
+                                            echo '<td>' . $valor . '</td>';
+                                            break;
+                                    }
+                                }
+
+                                echo '<td><p><a href="confirmarborrado.php?id=' . $fila['idReto'] . '"><span class="material-icons">delete</span></a></p></td>';
+                                echo '<td><p><a href="modificar.php?id=' . $fila['idReto'] . '"><span class="material-icons">edit</span></a></p></td>';
+                                echo '</tr>';
                             }
                         }
-
-                        echo '<td><p><a href="confirmarborrado.php?id=' . $fila['idReto'] . '"><span class="material-icons">delete</span></a></p></td>';
-                        echo '<td><p><a href="modificar.php?id=' . $fila['idReto'] . '"><span class="material-icons">edit</span></a></p></td>';
-                        echo '</tr>';
                     }
-                    
-                    echo '</tbody></table></div>';
-                }
-            }
-        ?>
-        <div class="wrapperBotones">
-            <div class="divBotones">
-                <a href="insertar.php"><span class="material-icons">add</span></a>
-            </div>
-            <div class="divBotones">
-                <a href="modificar.php"><span class="material-icons">edit</span></a>
-            </div>
+                ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="divBotones">
+            <a href="insertar.php"><span class="material-icons">add</span></a>
         </div>
     </body>
 </html>

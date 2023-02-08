@@ -28,7 +28,8 @@
                     <select name="categoria">
                         <?php
                             $datos = $controlador->obtenerCategorias();
-                            while($fila = $datos->fetch_array(MYSQLI_ASSOC)) echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                            while($fila = $datos->fetch_array(MYSQLI_ASSOC)) 
+                                echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
                         ?>
                     </select>
                 </label>
