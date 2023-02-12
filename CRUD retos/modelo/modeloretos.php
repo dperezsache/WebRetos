@@ -117,7 +117,9 @@
                 
                 if($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE nombreReto LIKE %?%");
+                    $busqueda = "%" . $busqueda . "%";
+
+                    $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE nombreReto LIKE ?");
                     $consulta->bind_param('s', $busqueda);
                     $consulta->execute();
                     $resultado = $consulta->get_result();
@@ -164,17 +166,17 @@
                     $consulta = $this->conexion->prepare("DELETE FROM retos WHERE idReto=?");
                     $consulta->bind_param('i', $id);
                     $consulta->execute();
-                    $resultado = $consulta->get_result();
-
-                    $consulta->close();
+                  
                     $this->conexion->close();
 
-                    if($resultado->affected_rows > 0)
+                    if($consulta->affected_rows > 0)
                     {
+                        $consulta->close();
                         return 1;
                     }
                     else
                     {
+                        $consulta->close();
                         return 0;
                     }
                 }
@@ -251,12 +253,11 @@
 
                     $consulta->close();
                     $this->conexion->close();
-
+                    
                     if($resultado->num_rows > 0)
                     {
-                        $resultado = $this->conexion->query($consulta);
                         $fila = $resultado->fetch_assoc();
-        
+
                         if(isset($fila['nombreReto']) && !empty($fila['nombreReto']))
                         {
                             return $fila['nombreReto'];
@@ -344,7 +345,7 @@
                     $fechaFinInscripcion = $array['fechaFinIns'];
                     $fechaInicioReto = $array['fechaInicioReto'];
                     $fechaFinReto = $array['fechaFinReto'];
-                    $fechaPublicacion = '31-12-23 12:30:50';
+                    $fechaPublicacion = '2023-12-31 23:59:50';
                     $publicado = 1;
                     $idProfesor = 1;
                     $idCategoria = $array['categoria'];
@@ -352,17 +353,17 @@
                     $consulta = $this->conexion->prepare("INSERT INTO retos(nombreReto, dirigido, descripcion, fechaInicioInscripcion, fechaFinInscripcion, fechaInicioReto, fechaFinReto, fechaPublicacion, publicado, idProfesor, idCategoria) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
                     $consulta->bind_param('ssssssssiii', $nombre, $dirigido, $descripcion, $fechaInicioInscripcion, $fechaFinInscripcion, $fechaInicioReto, $fechaFinReto, $fechaPublicacion, $publicado, $idProfesor, $idCategoria);
                     $consulta->execute();
-                    $resultado = $consulta->get_result();
 
-                    $consulta->close();
                     $this->conexion->close();
 
-                    if($resultado->affected_rows > 0)
+                    if($consulta->affected_rows > 0)
                     {
+                        $consulta->close();
                         return 1;
                     }
                     else
                     {
+                        $consulta->close();
                         return 0;
                     }
                 }
@@ -398,7 +399,7 @@
                     $fechaFinInscripcion = $arrayPost['fechaFinIns'];
                     $fechaInicioReto = $arrayPost['fechaInicioReto'];
                     $fechaFinReto = $arrayPost['fechaFinReto'];
-                    $fechaPublicacion = '31-12-23 12:30:50';
+                    $fechaPublicacion = '2023-12-31 23:59:50';
                     $publicado = 1;
                     $idProfesor = 1;
                     $idCategoria = $arrayPost['categoria'];

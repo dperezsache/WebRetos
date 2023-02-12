@@ -19,7 +19,7 @@
                     Nuevo nombre de categoría <input type="text" name="nombre" value="<?php echo $controlador->obtenerNombreCategoria($_GET) ?>"/>
                 </label>
                 <br/>
-                <button type="reset">Borrar</button>
+                <button type="reset">Cancelar</button>
                 <button type="submit">Modificar</button>
             </div>
         </form>

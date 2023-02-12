@@ -1,6 +1,7 @@
 /* David Pérez Saché */
 body {
     font-family: Verdana;
+    margin: 10px;
 }
 
 h2 {
@@ -133,15 +134,6 @@ p span#exito {
     color: green;
     font-weight: bold;
 }
-
-div.wrapperBotones {
-    text-align: center;
-    margin: 10px 0;
-}
-
-div.wrapperBotones div {
-    display: inline-block;
-}    
 
 div.divBotones {
     background-color: azure;

@@ -74,9 +74,9 @@
          */
         public function borrarReto($array)
         {
-            if(isset($array['reto']))
+            if(isset($array['id']))
             {
-                return $this->modelo->borrarReto($array['reto']);
+                return $this->modelo->borrarReto($array['id']);
             }
             else
             {
