@@ -1,6 +1,6 @@
 <?php
-    require_once('../../config/config.php');
-    require_once('../../config/configdb.php');
+    require_once(dirname(__DIR__) . '/config/config.php');
+    require_once(dirname(__DIR__) . '/config/configdb.php');
 
     /**
      * Clase ModeloDB.
@@ -16,6 +16,15 @@
         private $codificacion;
 
         function __construct()
+        {
+            $this->inicializar();
+        }
+
+        /**
+         * Iniciar conexión.
+         * @return void
+         */
+        private function inicializar()
         {
             $this->servidor = constant('SERVIDOR');
             $this->usuario = constant('USUARIO');

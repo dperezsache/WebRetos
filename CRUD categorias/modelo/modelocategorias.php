@@ -1,5 +1,5 @@
 <?php
-    require_once('../modelo/modelodb.php');
+    require_once('../../modelo/modelodb.php');
 
     /**
      * Clase ModeloCategorias.
