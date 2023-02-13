@@ -408,17 +408,17 @@
                     $consulta = $this->conexion->prepare("UPDATE retos SET nombreReto=?, dirigido=?, descripcion=?, fechaInicioInscripcion=?, fechaFinInscripcion=?, fechaInicioReto=?, fechaFinReto=?, fechaPublicacion=?, publicado=?, idProfesor=?, idCategoria=? WHERE idReto=?");
                     $consulta->bind_param('ssssssssiiii', $nombre, $dirigido, $descripcion, $fechaInicioInscripcion, $fechaFinInscripcion, $fechaInicioReto, $fechaFinReto, $fechaPublicacion, $publicado, $idProfesor, $idCategoria, $idReto);
                     $consulta->execute();
-                    $resultado = $consulta->get_result();
-    
-                    $consulta->close();
+
                     $this->conexion->close();
     
-                    if($resultado->affected_rows > 0)
+                    if($consulta->affected_rows > 0)
                     {
+                        $consulta->close();
                         return 1;
                     }
                     else
                     {
+                        $consulta->close();
                         return 0;
                     }
                 }

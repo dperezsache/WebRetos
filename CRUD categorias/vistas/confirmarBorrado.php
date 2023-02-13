@@ -1,25 +1,31 @@
 <?php
-    require_once('../controlador/controlador.php');
+    require_once('../controlador/controladorcategorias.php');
     $controlador = new ControladorCategorias();
+    $nombre = $controlador->obtenerNombreCategoria($_GET);
+
+    if(!$nombre) 
+        header('Location: listado.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8"/>
 		<meta name="author" content="David Pérez Saché"/>
-        <link rel="stylesheet" type="text/css" href="../css/estilos.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 		<title>Confirmar borrado</title>
     </head>
     <body>
-        <p>
-            ¿Eliminar la categoría "<?php echo $controlador->obtenerNombreCategoria($_GET) ?>"?
-            <br/>
-            <button type="button">
-                <a href="listado.php">Cancelar</a>
+        <div class="text-center alert alert-info my-3 mx-auto" style="width: 350px;">
+            <p class="my-3">
+                ¿Eliminar la categoría "<b><?php echo $nombre ?></b>"?
+            </p>
+            <button type="button" class="btn btn-danger">
+                <a href="listado.php" class="link-light">Cancelar</a>
             </button>
-            <button type="button">
-                <?php echo '<a href="borrar.php?id=' . $_GET['id'] .'"> Eliminar</a>' ?>
+            <button type="button" class="btn btn-success">
+                <?php echo '<a href="borrar.php?id=' . $_GET['id'] .'" class="link-light"> Eliminar</a>' ?>
             </button>
-        </p>
+        </div>
     </body>
 </html>
