@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-        <title>Consultar retos</title>
+        <title>Listado de retos</title>
     </head>
     <body>
         <h2 class="text-center my-3">Web de Retos - CRUD de retos</h2>
@@ -24,30 +24,35 @@
         </div>
 
         <form class="text-center" method="POST" action="" id="formBusqueda">
-            <div class="form-group mx-1 my-1">
+            <div class="form-group d-inline mx-1 my-1">
                 <label for="busqueda">
                     Buscar por nombre de reto <input type="text" placeholder="" class="form-control" name="busqueda"/>
                 </label>
-
+            </div>
+            <div class="form-group d-inline mx-1 my-1">
+                <label for="filtrado">
+                    Filtrar por categoría
+                    <select name="filtrado" class="form-select">
+                        <option value="-1">Sin filtro</option>
+                        <?php
+                            $categorias = $controlador->obtenerCategorias();
+                            while($fila = $categorias->fetch_array(MYSQLI_ASSOC))
+                                echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                        ?>
+                    </select>
+                </label>
+            </div>
+            <div class="d-block my-2">
                 <button type="reset" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
             </div>
         </form>
 
-        <table class="table text-center table-bordered table-hover mx-auto my-2" style="width: 90%;">
+        <table class="table text-center table-bordered table-hover mx-auto my-2 w-50">
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
                     <th>Reto</th>
-                    <th>Dirigido a</th>
-                    <th>Descripción</th>
-                    <th>Inicio inscripción</th>
-                    <th>Fin inscripción</th>
-                    <th>Inicio reto</th>
-                    <th>Fin reto</th>
-                    <th>Publicación</th>
-                    <th>¿Publicado?</th>
-                    <th>ID profesor</th>
                     <th>Categoría</th>
                     <th>Operaciones</th>
                 </tr>
@@ -92,23 +97,25 @@
                             {
                                 switch($indice)
                                 {
-                                    case 'publicado':
-                                        if (isset($fila['fechaPublicacion'])) echo '<td>Sí</td>';
-                                        else echo '<td>No</td>';
+                                    case 'idReto':
+                                        echo '<td>' . $fila['idReto'] . '</td>';
+                                        break;
+
+                                    case 'nombreReto':
+                                        echo '<td>' . $fila['nombreReto'] . '</td>';
                                         break;
 
                                     case 'idCategoria':
                                         echo '<td>' . $controlador->obtenerCategoria($valor) . '</td>';
                                         break;
-
-                                    default:
-                                        echo '<td>' . $valor . '</td>';
-                                        break;
                                 }
                             }
 
-                            echo '<td><p class="d-inline"><a href="confirmarborrado.php?id=' . $fila['idReto'] . '"><i class="bi bi-trash3-fill" style="font-size: 1.5em;"></i></a></p>';
-                            echo '<p class="d-inline"><a href="modificar.php?id=' . $fila['idReto'] . '"><i class="bi bi-pencil-fill" style="font-size: 1.5em;"></i></a></p></td></tr>';
+                            echo '<td><p class="d-inline"><a href="confirmarborrado.php?id=' . $fila['idReto'] . '"><i class="bi bi-trash3-fill mx-1" style="font-size: 1.25em;"></i></a></p>';
+                            echo '<p class="d-inline"><a href="modificar.php?id=' . $fila['idReto'] . '"><i class="bi bi-pencil-fill mx-1" style="font-size: 1.25em;"></i></a></p>';
+                            echo '<p class="d-inline"><a href="consultar.php?id=' . $fila['idReto'] . '"><i class="bi bi-search mx-1" style="font-size: 1.25em;"></i></a></p></td>';
+                            
+                            echo '</tr>';
                         }
                     }
                 }

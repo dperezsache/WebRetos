@@ -107,9 +107,10 @@
         /**
          * Devuelve el listado de los retos encontrados.
          * @param String $busqueda Nombre de el/los reto/s a buscar.
+         * @param String|Null $filtrado Filtrado por categoría.
          * @return Number Código éxito/error.
          */
-        public function listadoBusqueda($busqueda)
+        public function listadoBusqueda($busqueda, $filtrado)
         {
             try
             {
@@ -117,17 +118,31 @@
                 
                 if($this->conexion != null)
                 {
-                    $busqueda = "%" . $busqueda . "%";
+                    if ($busqueda != null && $filtrado != null) // Buscar y filtrar
+                    {
+                        $busqueda = "%" . $busqueda . "%";
+                        $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE nombreReto LIKE ? AND idCategoria = ?");
+                        $consulta->bind_param('si', $busqueda, $filtrado);
+                    }
+                    else if ($busqueda != null) // Buscar
+                    {
+                        $busqueda = "%" . $busqueda . "%";
+                        $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE nombreReto LIKE ?");
+                        $consulta->bind_param('s', $busqueda);
+                    }
+                    else if ($filtrado != null) // Filtrar
+                    {
+                        $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE idCategoria = ?");
+                        $consulta->bind_param('i', $filtrado);
+                    }
 
-                    $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE nombreReto LIKE ?");
-                    $consulta->bind_param('s', $busqueda);
                     $consulta->execute();
                     $resultado = $consulta->get_result();
-    
+
                     $consulta->close();
                     $this->conexion->close();
 
-                    if($resultado->num_rows > 0)
+                    if ($resultado->num_rows > 0)
                     {
                         $this->listaRetos = $resultado;
                         return 1;
@@ -340,7 +355,10 @@
                 {
                     $nombre = $array['nombre'];
                     $dirigido = $array['dirigido'];
-                    $descripcion = $array['descReto'];
+
+                    if (empty($array['descReto'])) $descripcion = NULL;
+                    else $descripcion = $array['descReto'];
+
                     $fechaInicioInscripcion = $array['fechaInicioIns'];
                     $fechaFinInscripcion = $array['fechaFinIns'];
                     $fechaInicioReto = $array['fechaInicioReto'];
@@ -394,7 +412,10 @@
                 {
                     $nombre = $arrayPost['nombre'];
                     $dirigido = $arrayPost['dirigido'];
-                    $descripcion = $arrayPost['descReto'];
+                    
+                    if (empty($array['descReto'])) $descripcion = NULL;
+                    else $descripcion = $array['descReto'];
+
                     $fechaInicioInscripcion = $arrayPost['fechaInicioIns'];
                     $fechaFinInscripcion = $arrayPost['fechaFinIns'];
                     $fechaInicioReto = $arrayPost['fechaInicioReto'];

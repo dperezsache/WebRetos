@@ -123,9 +123,11 @@
                     echo '<div class="alert alert-danger my-3 mx-auto" style="width: 350px;">Error: No has introducido fecha de inicio de inscripción.</div>';
                     break;
 
+                /*
                 case -4:
                     echo '<div class="alert alert-danger my-3 mx-auto" style="width: 350px;">Error: No has introducido descripción.</div>';
                     break;
+                */
 
                 case -3:
                     echo '<div class="alert alert-danger my-3 mx-auto" style="width: 350px;">Error: No has introducido a quien va dirigido el reto.</div>';

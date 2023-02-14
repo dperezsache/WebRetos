@@ -21,13 +21,27 @@
          */
         public function hayListado($array)
         {
-            if(isset($array['busqueda']) && !empty($array['busqueda']))
+            if (isset($array['busqueda']) && !empty($array['busqueda']))
             {
-                return $this->modelo->listadoBusqueda($array['busqueda']);
+                if (isset($array['filtrado']) && $array['filtrado'] != -1)
+                {
+                    return $this->modelo->listadoBusqueda($array['busqueda'], $array['filtrado']);
+                }
+                else
+                {
+                    return $this->modelo->listadoBusqueda($array['busqueda'], null);
+                }       
             }
             else
             {
-                return $this->modelo->listadoRetos();
+                if (isset($array['filtrado']) && $array['filtrado'] != -1)
+                {
+                    return $this->modelo->listadoBusqueda(null, $array['filtrado']);
+                }
+                else
+                {
+                    return $this->modelo->listadoRetos();
+                }
             }
         }
 
@@ -57,7 +71,7 @@
          */
         public function obtenerReto($array)
         {
-            if(isset($array['id']))
+            if (isset($array['id']))
             {
                 return $this->modelo->obtenerReto($array['id']);
             }
@@ -74,7 +88,7 @@
          */
         public function borrarReto($array)
         {
-            if(isset($array['id']))
+            if (isset($array['id']))
             {
                 return $this->modelo->borrarReto($array['id']);
             }
@@ -91,7 +105,7 @@
          */
         public function obtenerNombreReto($array)
         {
-            if(isset($array['id']))
+            if (isset($array['id']))
             {
                 return $this->modelo->obtenerNombreReto($array['id']);
             }
@@ -129,11 +143,6 @@
                 if (!empty($array['dirigido'])) $contador++;
                 else return -3; // Error dirigido vacío
             }
-            if(isset($array['descReto']))
-            {
-                if (!empty($array['descReto'])) $contador++;
-                else return -4; // Error descripción vacía
-            }
             if(isset($array['fechaInicioIns']))
             {
                 if (!empty($array['fechaInicioIns'])) $contador++;
@@ -155,7 +164,7 @@
                 else return -8; // Error fecha fin reto vacía
             }
 
-            if($contador == 7)
+            if($contador == 6)
             {
                 $contador = 0;
 
@@ -208,11 +217,6 @@
                     if (!empty($arrayPost['dirigido'])) $contador++;
                     else return -3; // Error dirigido vacío
                 }
-                if(isset($arrayPost['descReto']))
-                {
-                    if (!empty($arrayPost['descReto'])) $contador++;
-                    else return -4; // Error descripción vacía
-                }
                 if(isset($arrayPost['fechaInicioIns']))
                 {
                     if (!empty($arrayPost['fechaInicioIns'])) $contador++;
@@ -234,7 +238,7 @@
                     else return -8; // Error fecha fin reto vacía
                 }
 
-                if($contador == 7)
+                if($contador == 6)
                 {
                     $contador = 0;
     

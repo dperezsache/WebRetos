@@ -1,11 +1,9 @@
 <?php
     require_once('../controlador/controladorretos.php');
     $controlador = new ControladorRetos();
-
     $nombre = $controlador->obtenerNombreReto($_GET);
 
-    if(!$nombre) 
-        header('Location: listado.php');
+    if(!$nombre) header('Location: listado.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
