@@ -1,0 +1,330 @@
+.material-icons {
+    color: cornflowerblue;
+}
+
+.material-icons:hover {
+    color: rgb(49, 116, 241);
+}
+
+body {
+    width: 100%;
+    font-family: Arial;
+    min-height: 1080px;
+    margin: 0;
+}
+
+header, footer {
+    background-color: lightgray;
+}
+
+main {
+    min-height: 956.5px;
+}
+
+nav {
+    width: 23.28125%;   /* 298px / 1280px (ancho base) * 100 = 23,28125% */
+    min-height: 956.5px;
+    border: 1px solid black;
+    background-color: #303030;
+    float: left;
+}
+
+nav div.navElemento {
+    width: 97.31543624161074%;   /* 290px / 298px (ancho padre) * 100 = 97.31543624161074% */
+    min-height: 25px;
+    padding: 1.677852348993289%;   /* 5px / 298px (ancho padre) * 100 = 1,677852348993289% */
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+nav div.navElemento a {
+    text-decoration: none;
+    color: white;
+}
+
+nav div.navElemento:hover {
+    cursor: pointer;
+    background-color: #505050;
+}
+
+nav div.navElemento a:hover {
+    color: lightyellow;
+}
+
+nav div.navElementoTitulo {
+    width: 97.31543624161074%;   /* 290px / 298px (ancho padre) * 100 = 97.31543624161074% */
+    min-height: 25px;
+    padding: 1.677852348993289%;   /* 5px / 298px (ancho padre) * 100 = 1,677852348993289% */
+    color: rgb(255, 255, 196);
+    text-decoration: underline;
+    font-weight: bold;
+    text-align: center;
+}
+
+div#divTitulo {
+    width: 76.40625%;   /* 978px / 1280 (ancho base) * 100 = 76,40625% */
+    display: block;
+    border: 1px solid black;
+    margin-left: 23.4375%; /* 300px / 1280px (ancho base) * 100 = 23,4375% */
+    text-align: center;
+    background-color: #1b1b1b;
+    color: ghostwhite;
+    min-height: 78px;
+}
+
+div#divContenido {
+    margin-left: 23.4375%; /* 300px / 1280px (ancho base) * 100 = 23,4375% */
+}
+
+form#formBusqueda {
+    width: 298px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 1em;
+    padding: 10px;
+    background-color: aliceblue;
+}
+
+form#formAlta,
+form#formModificar {
+    width: 398px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 1em;
+    padding: 10px;
+    background-color: aliceblue;
+}
+
+form div.formItem {
+    margin:  10px auto;
+    text-align: center;
+}
+
+div.formItem input, 
+div.formItem select, 
+div.formItem textarea {
+    display: block;
+    margin: auto;
+    min-height: 20px;
+    min-width: 198px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: white;
+}
+
+button.botonRojo,
+button.botonVerde,
+button.botonNeutro {
+    margin: auto;
+    min-height: 20px;
+    border-radius: 5px;
+    border: 0;
+    padding: 5px 15px;
+}
+
+button.botonRojo {
+    background-color: #dc3545;
+    color: white;
+}
+
+button.botonVerde {
+    background-color: #198754;
+    color: white;
+}
+
+button.botonNeutro {
+    background-color: #ced4da;
+}
+
+button.botonRojo a,
+button.botonVerde a,
+button.botonNeutro a {
+    color: white;
+}
+
+footer div#divFooter {
+    margin: 0 40.234375%;
+    width: 100%;
+    font-size: 0;
+}
+
+footer {
+    position: relative;
+}
+
+footer div#divFooter img {
+    padding: 5px 10px;
+}
+
+div#divTabla {
+    max-height: 525px;
+    margin-top: 20px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+table {
+    width: 50%;
+    margin: auto;
+    border-collapse: collapse;
+    height: 30px; 
+    overflow-y: scroll;
+}
+
+table thead {
+    background-color: #1b1b1b;
+    color: white;
+}
+
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #1b1b1b;
+    text-align: center;
+}
+
+.inline {
+    display: inline-block;
+    margin: 0;
+}
+
+div.divBoton {
+    margin: 20px auto;
+    background-color: #14426c;
+    width: 24px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+div.error,
+div.aviso,
+div.exito {
+    width: 350px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+div.error {
+    background-color: #f8d7da;
+    border: 1px solid #f1aeb5;
+    color: #b02a37;
+}
+
+div.aviso {
+    background-color: #fff3cd;
+    border: 1px solid #ffe69c;
+    color: #997404;
+}
+
+div.exito {
+    background-color: #d1e7dd;
+    border: 1px solid #a3cfbb;
+    color: #146c43;
+}
+
+div#divConsulta {
+    width: 80%;
+    border: 1px solid gray;
+    background-color: rgb(238, 238, 238);
+    padding: 10px;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+
+div#divConsulta li {
+    margin: 15px 0;
+}
+
+/* ----- Media Query Tablet ----- */
+@media (max-width:768px) {
+    body, header, footer {
+        width: 100%;
+    }
+
+    header img {
+        width: 52.08333333333333%;  /* 400px / 768px * 100 = 52,08333333333333% */
+    }
+    
+    nav {
+        width: 99.73958333333333%; /* 766px / 768px * 100 = 99,73958333333333% */
+        min-height: 300px;
+        float: none;
+    }
+
+    nav div.navElementoTitulo, 
+    nav div.navElemento {
+        text-decoration: none;
+        width: 98.69791666666667%;  /* 758px / 768px * 100 = 98,69791666666667% */
+        padding: 0.6510416666666667%; /* 5px / 768px * 100 = 0,6510416666666667% */
+    }
+
+    nav div.navElemento {
+        font-size: 0.8em;
+        margin: 0;
+        text-align: center;
+    }
+
+    div#divTitulo {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    div#divContenido {
+        margin-left: 0;
+    }
+
+    footer div#divFooter {
+        margin: 0;
+        text-align: center;
+    }
+}
+
+/* ----- Media Query Smartphone ----- */
+@media (max-width:420px) {
+    body, header, footer {
+        width: 100%;
+    }
+
+    header img {
+        width: 50%;
+        margin-left: 23.80952380952381%;    /* 100px / 420px * 100 = 23,80952380952381% */
+        margin-right: 26.19047619047619%;    /* 110px / 420px * 100 = 26,19047619047619% */
+    }
+
+    nav {
+        width: 99.52380952380952%;  /* 418px / 420px * 100 = 99,52380952380952%  */
+        float: none;
+        display: block;
+        min-height: 300px;
+    }
+
+    nav div.navElementoTitulo, 
+    nav div.navElemento {
+        text-decoration: none;
+        width: 98.08612440191388%;  /* 410px / 418px * 100 = 98,08612440191388% */
+        padding: 1.196172248803828%; /* 5px / 418px * 100 = 1,196172248803828% */
+    }
+
+    nav div.navElemento {
+        margin: 0;
+    }
+
+    div#divTitulo {
+        width: 99.52380952380952%;  /* 418px / 420px * 100 = 99,52380952380952%  */
+        margin-left: 0;
+    }
+
+    div#divContenido {
+        margin-left: 0;
+    }
+
+    form#formAlta,
+    form#formModificar {
+        width: 250px;
+        margin: 20px auto;
+    }
+}
