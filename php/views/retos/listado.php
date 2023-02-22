@@ -64,7 +64,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Reto</th>
-                        <th>Publicado</th>
+                        <th class="colPublicado">Publicado</th>
                         <th>Categoría</th>
                         <th>Operaciones</th>
                     </tr>
@@ -120,11 +120,11 @@
 
                                         case 'publicado':
                                             if ($fila['publicado'] == 1) {
-                                                echo '<td>Sí</td>';
+                                                echo '<td class="colPublicado">Sí</td>';
                                                 $publicado = true;
                                             }
                                             else {
-                                                echo '<td>No</td>';
+                                                echo '<td class="colPublicado">No</td>';
                                                 $publicado = false;
                                             }
                                             break;
