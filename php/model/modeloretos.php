@@ -219,6 +219,13 @@
 
                 if($this->conexion != null)
                 {
+                    // Comprobar que el reto no haya sido ya publicado.
+                    $reto = $this->obtenerReto($id);
+                    if($reto != null) 
+                    {
+                        if ($reto['publicado'] == 1) return 2;
+                    }
+
                     $fechaPublicacion = $this->obtenerFechaActual();
                     $publicado = 1;
 

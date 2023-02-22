@@ -50,6 +50,10 @@
                     echo '<div class="exito">Exito: El reto ha sido publicado.</div>';
                     break;
 
+                case 2:
+                    echo '<div class="error">Error: El reto ya es público.</div>';
+                    break;
+
                 case 1146:
                     echo '<div class="error">Error: No existe la tabla de retos.</div>';
                     break;
