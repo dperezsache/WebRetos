@@ -39,9 +39,9 @@
          */
         public function altaCategoria($array)
         {
-            if(isset($array['nombre']))
+            if (isset($array['nombre']))
             {
-                if(!empty($array['nombre']))
+                if (!empty($array['nombre']))
                 {
                     return $this->modelo->altaCategoria($array['nombre']);
                 }
@@ -63,7 +63,7 @@
          */
         public function borrarCategoria($array)
         {
-            if(isset($array['id']))
+            if (isset($array['id']))
             {
                 return $this->modelo->borrarCategoria($array['id']);
             }
@@ -104,7 +104,7 @@
          */
         public function obtenerNombreCategoria($array)
         {
-            if(isset($array['id']))
+            if (isset($array['id']))
             {
                 return $this->modelo->obtenerNombreCategoria($array['id']);
             }

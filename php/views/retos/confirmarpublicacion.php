@@ -3,6 +3,7 @@
     $controlador = new ControladorRetos();
     $nombre = $controlador->obtenerNombreReto($_GET);
 
+    // Si no se puede obtener el nombre del reto es porque no existe, redireccionar al listado.
     if(!$nombre)
     {
         header('Location: listado.php');

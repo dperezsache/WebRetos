@@ -3,6 +3,7 @@
     $controlador = new ControladorCategorias();
     $nombre = $controlador->obtenerNombreCategoria($_GET);
 
+    // Si no se puede obtener el nombre de la categoría es porque no existe, redireccionar al listado.
     if(!$nombre)
     {
         header('Location: listado.php');

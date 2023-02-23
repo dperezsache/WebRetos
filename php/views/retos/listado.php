@@ -95,11 +95,11 @@
                             break;
                     }
 
-                    if($resultado == 1)
+                    if ($resultado == 1)
                     {
                         $datos = $controlador->obtenerListado();
 
-                        if($datos != null)
+                        if ($datos != null)
                         {
                             while($fila = $datos->fetch_array(MYSQLI_ASSOC))
                             {

@@ -30,7 +30,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare("INSERT INTO categorias(nombreCategoria) VALUES(?)");
                     $consulta->bind_param('s', $nombre);
@@ -38,7 +38,7 @@
 
                     $this->conexion->close();
     
-                    if($consulta->affected_rows > 0)
+                    if ($consulta->affected_rows > 0)
                     {
                         $consulta->close();
                         return 1;
@@ -71,7 +71,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare("DELETE FROM categorias WHERE idCategoria=?");
                     $consulta->bind_param('i', $id);
@@ -79,7 +79,7 @@
 
                     $this->conexion->close();
     
-                    if($consulta->affected_rows > 0)
+                    if ($consulta->affected_rows > 0)
                     {
                         $consulta->close();
                         return 1;
@@ -113,7 +113,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare("UPDATE categorias SET idCategoria=?, nombreCategoria=? WHERE idCategoria=?");
                     $consulta->bind_param('isi', $id, $nombre, $id);
@@ -121,7 +121,7 @@
                     
                     $this->conexion->close();
     
-                    if($consulta->affected_rows > 0)
+                    if ($consulta->affected_rows > 0)
                     {
                         $consulta->close();
                         return 1;
@@ -154,7 +154,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare("SELECT nombreCategoria FROM categorias WHERE idCategoria=?");
                     $consulta->bind_param('i', $id);
@@ -164,11 +164,11 @@
                     $consulta->close();
                     $this->conexion->close();
 
-                    if($resultado->num_rows > 0)
+                    if ($resultado->num_rows > 0)
                     {
                         $fila = $resultado->fetch_assoc();
         
-                        if(isset($fila['nombreCategoria']) && !empty($fila['nombreCategoria']))
+                        if (isset($fila['nombreCategoria']) && !empty($fila['nombreCategoria']))
                         {
                             return $fila['nombreCategoria'];
                         }
@@ -203,7 +203,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare("SELECT * FROM categorias ORDER BY idCategoria ASC");
                     $consulta->execute();
@@ -212,7 +212,7 @@
                     $consulta->close();
                     $this->conexion->close();
 
-                    if($resultado->num_rows > 0)
+                    if ($resultado->num_rows > 0)
                     {
                         $this->listaCategorias = $resultado;
                         return 1;

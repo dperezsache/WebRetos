@@ -46,18 +46,15 @@
                             $controlador->cargarRetos();
                             $retos = $controlador->obtenerRetos();
                             
-                            if($retos != null)
+                            if ($retos != null)
                             {
                                 while($fila = $retos->fetch_array(MYSQLI_ASSOC))
                                 {
-                                    if($fila['idReto'] == $datos['idReto'])
-                                    {
+                                    if ($fila['idReto'] == $datos['idReto'])
                                         echo '<option selected value="' . $fila['idReto'] . '">' . $fila['nombreReto'] . '</option>';
-                                    }
+
                                     else
-                                    {
                                         echo '<option value="' . $fila['idReto'] . '">' . $fila['nombreReto'] . '</option>';
-                                    }
                                 }
                             }
                         ?>
@@ -80,15 +77,16 @@
                     <select name="categoria">
                         <?php
                             $categorias = $controlador->obtenerCategorias();
-                            while($fila = $categorias->fetch_array(MYSQLI_ASSOC))
+
+                            if ($categorias != null)
                             {
-                                if($fila['idCategoria'] == $datos['idCategoria'])
+                                while($fila = $categorias->fetch_array(MYSQLI_ASSOC))
                                 {
-                                    echo '<option selected value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
-                                }
-                                else
-                                {
-                                    echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                                    if ($fila['idCategoria'] == $datos['idCategoria'])
+                                        echo '<option selected value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+    
+                                    else
+                                        echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
                                 }
                             }
                         ?>
@@ -130,51 +128,41 @@
             
             switch($resultado)
             {
-                case -14:
-                    echo '<div class="error">Error: Fecha de fin de reto incorrecta.</div>';
-                    break;
-
-                case -13:
-                    echo '<div class="error">Error: Fecha de inicio de reto incorrecta.</div>';
-                    break;
-    
                 case -12:
-                    echo '<div class="error">Error: Fecha de fin de inscripción incorrecta.</div>';
-                    break;
-
-                case -11:
-                    echo '<div class="error">Error: Fecha de inicio de inscripción incorrecta.</div>';
-                    break;
-
-                case -10:
-                    echo '<div class="error">Error: No has introducido descripción.</div>';
-                    break;
-
-                case -9:
                     echo '<div class="error">Error: No has selecionado un reto.</div>';
                     break;
 
+                case -11:
+                    echo '<div class="error">Error: Fecha de fin de reto incorrecta.</div>';
+                    break;
+
+                case -10:
+                    echo '<div class="error">Error: Fecha de inicio de reto incorrecta.</div>';
+                    break;
+    
+                case -9:
+                    echo '<div class="error">Error: Fecha de fin de inscripción incorrecta.</div>';
+                    break;
+
                 case -8:
-                    echo '<div class="error">Error: No has introducido fecha de fin de reto.</div>';
+                    echo '<div class="error">Error: Fecha de inicio de inscripción incorrecta.</div>';
                     break;
 
                 case -7:
+                    echo '<div class="error">Error: No has introducido fecha de fin de reto.</div>';
+                    break;
+
+                case -6:
                     echo '<div class="error">Error: No has introducido fecha de inicio de reto.</div>';
                     break;
     
-                case -6:
+                case -5:
                     echo '<div class="error">Error: No has introducido fecha de fin de inscripción.</div>';
                     break;
 
-                case -5:
+                case -4:
                     echo '<div class="error">Error: No has introducido fecha de inicio de inscripción.</div>';
                     break;
-
-                /*
-                case -4:
-                    echo '<div class="error">Error: No has introducido descripción.</div>';
-                    break;
-                */
 
                 case -3:
                     echo '<div class="error">Error: No has introducido a quien va dirigido el reto.</div>';

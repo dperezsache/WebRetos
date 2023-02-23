@@ -29,7 +29,7 @@
             {
                 $this->obtenerConexion();
 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare('SELECT * FROM categorias ORDER BY idCategoria ASC');
                     $consulta->execute();
@@ -38,7 +38,7 @@
                     $consulta->close();
                     $this->conexion->close();
 
-                    if($resultado->num_rows > 0)
+                    if ($resultado->num_rows > 0)
                     {
                         return $resultado;
                     }
@@ -69,7 +69,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare("SELECT nombreCategoria FROM categorias WHERE idCategoria=?");
                     $consulta->bind_param('i', $id);
@@ -79,11 +79,11 @@
                     $consulta->close();
                     $this->conexion->close();
 
-                    if($resultado->num_rows > 0)
+                    if ($resultado->num_rows > 0)
                     {
-                        $fila = $resultado->fetch_assoc();
+                        $fila = $resultado->fetch_array(MYSQLI_ASSOC);
         
-                        if(isset($fila['nombreCategoria']) && !empty($fila['nombreCategoria']))
+                        if (isset($fila['nombreCategoria']) && !empty($fila['nombreCategoria']))
                         {
                             return $fila['nombreCategoria'];
                         }
@@ -116,7 +116,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     if ($busqueda != null && $filtrado != null) // Buscar y filtrar
                     {
@@ -176,7 +176,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare("DELETE FROM retos WHERE idReto=?");
                     $consulta->bind_param('i', $id);
@@ -184,7 +184,7 @@
                   
                     $this->conexion->close();
 
-                    if($consulta->affected_rows > 0)
+                    if ($consulta->affected_rows > 0)
                     {
                         $consulta->close();
                         return 1;
@@ -217,11 +217,11 @@
             {
                 $this->obtenerConexion();
 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     // Comprobar que el reto no haya sido ya publicado.
                     $reto = $this->obtenerReto($id);
-                    if($reto != null) 
+                    if ($reto != null) 
                     {
                         if ($reto['publicado'] == 1) return 2;
                     }
@@ -235,7 +235,7 @@
     
                     $this->conexion->close();
     
-                    if($consulta->affected_rows > 0)
+                    if ($consulta->affected_rows > 0)
                     {
                         $consulta->close();
                         return 1;
@@ -267,7 +267,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare('SELECT * FROM retos ORDER BY idReto ASC');
                     $consulta->execute();
@@ -276,7 +276,7 @@
                     $consulta->close();
                     $this->conexion->close();
                     
-                    if($resultado->num_rows > 0)
+                    if ($resultado->num_rows > 0)
                     {
                         $this->listaRetos = $resultado;
                         return 1;
@@ -310,7 +310,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare("SELECT nombreReto FROM retos WHERE idReto=?");
                     $consulta->bind_param('i', $id);
@@ -320,11 +320,11 @@
                     $consulta->close();
                     $this->conexion->close();
                     
-                    if($resultado->num_rows > 0)
+                    if ($resultado->num_rows > 0)
                     {
-                        $fila = $resultado->fetch_assoc();
+                        $fila = $resultado->fetch_array(MYSQLI_ASSOC);
 
-                        if(isset($fila['nombreReto']) && !empty($fila['nombreReto']))
+                        if (isset($fila['nombreReto']) && !empty($fila['nombreReto']))
                         {
                             return $fila['nombreReto'];
                         }
@@ -360,7 +360,7 @@
             {
                 $this->obtenerConexion();
     
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE idReto=?");
                     $consulta->bind_param('i', $id);
@@ -370,9 +370,9 @@
                     $consulta->close();
                     $this->conexion->close();
                     
-                    if($resultado != null)
+                    if ($resultado != null)
                     {
-                        $fila = $resultado->fetch_assoc();
+                        $fila = $resultado->fetch_array(MYSQLI_ASSOC);
                         return $fila;
                     }
                     else
@@ -402,7 +402,7 @@
             {
                 $this->obtenerConexion();
                 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $nombre = $array['nombre'];
                     $dirigido = $array['dirigido'];
@@ -419,7 +419,7 @@
                     $idProfesor = 1;
                     $idCategoria = $array['categoria'];
 
-                    if($publicado == 1)
+                    if ($publicado == 1)
                     {
                         $fechaPublicacion = $this->obtenerFechaActual();
                     }
@@ -434,7 +434,7 @@
 
                     $this->conexion->close();
 
-                    if($consulta->affected_rows > 0)
+                    if ($consulta->affected_rows > 0)
                     {
                         $consulta->close();
                         return 1;
@@ -480,7 +480,7 @@
             {
                 $this->obtenerConexion();
 
-                if($this->conexion != null)
+                if ($this->conexion != null)
                 {
                     $nombre = $arrayPost['nombre'];
                     $dirigido = $arrayPost['dirigido'];
@@ -506,7 +506,7 @@
 
                     $this->conexion->close();
     
-                    if($consulta->affected_rows > 0)
+                    if ($consulta->affected_rows > 0)
                     {
                         $consulta->close();
                         return 1;

@@ -3,6 +3,7 @@
     $controlador = new ControladorRetos();
     $datos = $controlador->obtenerReto($_GET);
 
+    // Si no se puede obtener los datos del reto, redireccionar al listado.
     if(!$datos) 
     {
         header('Location: listado.php');
@@ -46,7 +47,7 @@
                 <li><b>ID del reto:</b> <?php echo $_GET['id'] ?></li>
                 <li><b>Nombre del reto:</b> <?php echo isset($datos['nombreReto']) ? $datos['nombreReto'] : '' ?></li>
                 <li><b>Dirigido a:</b> <?php echo isset($datos['dirigido']) ? $datos['dirigido'] : '' ?></li>
-                <li><b>Categoría:</b> <?php echo $controlador->obtenerCategoria($_GET['id']) ?></li>
+                <li><b>Categoría:</b> <?php echo $controlador->obtenerCategoria($datos['idCategoria']) ?></li>
                 <li><b>Fecha inicio de inscripción:</b> <?php echo isset($datos['fechaInicioInscripcion']) ? $datos['fechaInicioInscripcion'] : '' ?></li>
                 <li><b>Fecha fin de inscripción:</b> <?php echo isset($datos['fechaFinInscripcion']) ? $datos['fechaFinInscripcion'] : '' ?></li>
                 <li><b>Fecha inicio del reto:</b> <?php echo isset($datos['fechaInicioReto']) ? $datos['fechaInicioReto'] : '' ?></li>
