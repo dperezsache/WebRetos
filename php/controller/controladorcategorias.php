@@ -1,5 +1,5 @@
 <?php
-    require_once(dirname(__DIR__) .'../model/modelocategorias.php');
+    require_once(dirname(__DIR__) . '/model/modelocategorias.php');
 
     /**
      * Clase ControladorCategorias.
