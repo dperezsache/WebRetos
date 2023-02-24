@@ -392,6 +392,57 @@
         }
 
         /**
+         * Obtiene el nombre del profesor.
+         * @param Number $id ID del profesor.
+         * @return String Nombre del profesor.
+         */
+        public function obtenerNombreProfesor($id)
+        {
+            try
+            {
+                $this->obtenerConexion();
+
+                if ($this->conexion != null)
+                {
+                    $consulta = $this->conexion->prepare("SELECT nombre FROM profesores WHERE idProfesor=?");
+                    $consulta->bind_param('i', $id);
+                    $consulta->execute();
+
+                    $resultado = $consulta->get_result();
+
+                    $consulta->close();
+                    $this->conexion->close();
+                    
+                    if ($resultado->num_rows > 0)
+                    {
+                        $fila = $resultado->fetch_array(MYSQLI_ASSOC);
+                        
+                        if (isset($fila['nombre']) && !empty($fila['nombre']))
+                        {
+                            return $fila['nombre'];
+                        }
+                        else
+                        {
+                            return '';
+                        }
+                    }
+                    else
+                    {
+                        return '';
+                    }
+                }
+                else
+                {
+                    return '';
+                }
+            }
+            catch(mysqli_sql_exception $e)
+            {
+                return '';
+            }
+        }
+
+        /**
          * Añade un reto.
          * @param Array $array Array de datos.
          * @return Number Nº del código de error o éxito.

@@ -55,7 +55,7 @@
                 <li><b>Descripción:</b> <?php echo isset($datos['descripcion']) && !empty($datos['descripcion']) ? $datos['descripcion'] : '*En blanco*' ?></li>
                 <li><b>Publicado:</b> <?php echo isset($datos['publicado']) && $datos['publicado'] == 1 ? 'Sí' : 'No' ?></li>
                 <li><b>Fecha de publicación:</b> <?php echo isset($datos['fechaPublicacion']) && isset($datos['publicado']) && $datos['publicado'] == 1 ? $datos['fechaPublicacion'] : 'No publicado' ?></li>
-                <li><b>ID del profesor:</b> <?php echo isset($datos['idProfesor']) ? $datos['idProfesor'] : '' ?></li>
+                <li><b>Profesor:</b> <?php echo $controlador->obtenerNombreProfesor($datos['idProfesor']) ?></li>
             </ul>
         </div>
         <div class="divBoton">

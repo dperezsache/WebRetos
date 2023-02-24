@@ -89,6 +89,16 @@
         }
 
         /**
+         * Devuelve el nombre profesor indicado.
+         * @param Array $id ID del profesor.
+         * @return String Nombre del profesor.
+         */
+        public function obtenerNombreProfesor($id)
+        {
+            return $this->modelo->obtenerNombreProfesor($id);
+        }
+
+        /**
          * Elimina un reto.
          * @param Array $array Array de datos.
          * @return Number Nº del código de error o éxito.
