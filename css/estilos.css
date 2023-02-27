@@ -5,6 +5,14 @@ body {
     margin: 0;
 }
 
+body#bodyLogin {
+    background-color: rgb(236, 236, 236); 
+}
+
+h1 {
+    text-align: center;
+}
+
 header, footer {
     background-color: lightgray;
 }
@@ -92,6 +100,32 @@ form#formModificar {
 form div.formItem {
     margin:  10px auto;
     text-align: center;
+}
+
+form#formLogin {
+    background-color: white;
+    margin: 10px auto;
+    width: 373px;
+    border-top: 5px solid #00c4ff;
+    padding: 10px;
+}
+
+form#formLogin input, 
+form#formLogin button {
+    min-height: 30px;
+    width: 298px;
+    border-radius: 0;
+    border: 1px solid lightgray;
+}
+
+form#formLogin button {
+    margin-top: 10px;
+    background-color: #00c4ff;
+    color: white;
+}
+
+form#formLogin button:hover {
+    background-color: #00b1e7;
 }
 
 div.formItem input, 

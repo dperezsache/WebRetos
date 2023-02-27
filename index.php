@@ -1,3 +1,9 @@
+<?php
+    // Comprobar que haya sesión
+    session_start();
+    if (!isset($_SESSION['idProfesor']) && !isset($_SESSION['nombreProfesor']))
+        header('Location: ./php/views/login/login.php');
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -40,7 +46,7 @@
             </div>
             <div id="divContenido">
                 <div class="exito">
-                    <h3>Bienvenido, elige una opción del menú.</h3>
+                    <h3>Bienvenido <?php echo $_SESSION['nombreProfesor']; ?>, elige una de las opciones del menú.</h3>
                 </div>
             </div>
         </main>
