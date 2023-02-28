@@ -45,7 +45,7 @@
                     {
                         $fila = $resultado->fetch_array(MYSQLI_ASSOC);
                         $this->generarSesion($fila['idProfesor']);
-                        return 0;
+                        return 1;
                     }
                     else
                     {

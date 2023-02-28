@@ -3,8 +3,37 @@
     $controlador = new ControladorLogin();
 
     session_start();
-    if (isset($_SESSION['idProfesor'])) 
+
+    if (isset($_SESSION['idProfesor']))
+    {
         header('Location: ../../../index.php');
+    }
+    else
+    {
+        $resultado = $controlador->iniciarSesion($_POST);
+
+        switch($resultado)
+        {
+            case -2:
+                echo '<div class="error">Error: Los datos introducidos son incorrectos, pruebe de nuevo.</div>';
+                break;
+            
+            case -1:
+                echo '<div class="error">Error: No hay conexión con la base de datos.</div>';
+                break;
+    
+            case 0:
+                break;
+
+            case 1:
+                header('Location: ../../../index.php');
+                break;
+    
+            default:
+                echo '<div class="error">Se ha producido un error con código: <b>' . $resultado . '</b>.</div>';
+                break;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,36 +51,15 @@
         <form action="" method="POST" id="formLogin">
             <div class="formItem">
                 <label for="correo">Correo electrónico</label>
-                <input type="email" name="correo" maxlength="100" required/>
+                <input type="text" name="correo" maxlength="100" required/>
             </div>
             <div class="formItem">
                 <label for="password">Contraseña</label>
                 <input type="password" name="password" maxlength="255" required/>
             </div>
             <div class="formItem">
-                <button type="submit">Aceptar</button>
+                <button type="submit">Entrar</button>
             </div>
         </form>
     </body>
-    <?php
-        $resultado = $controlador->iniciarSesion($_POST);
-
-        switch($resultado)
-        {
-            case -2:
-                echo '<div class="error">Error: Datos incorrectos, pruebe de nuevo.</div>';
-                break;
-            
-            case -1:
-                echo '<div class="error">Error: El usuario es incorrecto o está sin rellenar.</div>';
-                break;
-    
-            case 0:
-                break;
-    
-            default:
-                echo '<div class="error">Se ha producido un error con código: <b>' . $resultado . '</b>.</div>';
-                break;
-        }
-    ?>
 </html>
