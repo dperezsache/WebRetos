@@ -1,7 +1,7 @@
 <?php
     // Comprobar que haya sesión
     session_start();
-    if (!isset($_SESSION['idProfesor']) && !isset($_SESSION['nombreProfesor']))
+    if (!isset($_SESSION['idProfesor']))
         header('Location: ./php/views/login/login.php');
 ?>
 <!DOCTYPE html>
@@ -40,13 +40,17 @@
                 <div class="navElemento">
                     <a href="./php/views/categorias/modificar.php">Modificar categorías</a>
                 </div>
+                <div class="navElementoTitulo">Sesión</div>
+                <div class="navElemento">
+                    <a href="./php/views/login/logout.php">Cerrar sesión</a>
+                </div>
             </nav>
             <div id="divTitulo">
                 <h1>Inicio</h1>
             </div>
             <div id="divContenido">
                 <div class="exito">
-                    <h3>Bienvenido <?php echo $_SESSION['nombreProfesor']; ?>, elige una de las opciones del menú.</h3>
+                    <h3>Bienvenido, elige una de las opciones del menú.</h3>
                 </div>
             </div>
         </main>

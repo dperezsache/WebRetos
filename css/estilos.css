@@ -105,15 +105,17 @@ form div.formItem {
 form#formLogin {
     background-color: white;
     margin: 10px auto;
-    width: 373px;
+    width: 29.140625%;
+    min-width: 250px;
     border-top: 5px solid #00c4ff;
     padding: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 form#formLogin input, 
 form#formLogin button {
     min-height: 30px;
-    width: 298px;
+    width: 79.89276139410188%;
     border-radius: 0;
     border: 1px solid lightgray;
 }
@@ -122,6 +124,7 @@ form#formLogin button {
     margin-top: 10px;
     background-color: #00c4ff;
     color: white;
+    border: 0;
 }
 
 form#formLogin button:hover {

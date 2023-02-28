@@ -21,21 +21,22 @@
          */
         public function iniciarSesion($array)
         {
-            if (isset($array['correo']) && !empty($array['correo']))
+            if (isset($array['correo']) && !empty($array['correo']) && isset($array['password']) && !empty($array['password']))
             {
-                if (isset($array['password']) && !empty($array['password']))
-                {
-                    return $this->modelo->inicioSesion($array['correo'], $array['password']);
-                }
-                else
-                {
-                    return -2;
-                }
+                return $this->modelo->inicioSesion($array['correo'], $array['password']);
             }
             else
             {
                 return 0;
             }
+        }
+
+        /**
+         * Realizar el cierre de sesión del usuario actual.
+         */
+        public function cerrarSesion()
+        {
+            $this->modelo->cerrarSesion();
         }
     }
 ?>

@@ -3,7 +3,7 @@
     $controlador = new ControladorLogin();
 
     session_start();
-    if (isset($_SESSION['idProfesor']) && isset($_SESSION['nombreProfesor'])) 
+    if (isset($_SESSION['idProfesor'])) 
         header('Location: ../../../index.php');
 ?>
 <!DOCTYPE html>
@@ -22,11 +22,11 @@
         <form action="" method="POST" id="formLogin">
             <div class="formItem">
                 <label for="correo">Correo electrónico</label>
-                <input type="text" name="correo" maxlength="100"/>
+                <input type="email" name="correo" maxlength="100" required/>
             </div>
             <div class="formItem">
                 <label for="password">Contraseña</label>
-                <input type="password" name="password" maxlength="255"/>
+                <input type="password" name="password" maxlength="255" required/>
             </div>
             <div class="formItem">
                 <button type="submit">Aceptar</button>
@@ -38,19 +38,15 @@
 
         switch($resultado)
         {
-            case -3:
-                echo '<div class="error">Error: Datos incorrectos, intentelo de nuevo.</div>';
-                break;
-    
             case -2:
-                echo '<div class="error">Error: La contraseña es incorrecta o está sin rellenar.</div>';
+                echo '<div class="error">Error: Datos incorrectos, pruebe de nuevo.</div>';
                 break;
-    
+            
             case -1:
                 echo '<div class="error">Error: El usuario es incorrecto o está sin rellenar.</div>';
                 break;
     
-            case 0: case 1:
+            case 0:
                 break;
     
             default:

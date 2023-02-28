@@ -44,12 +44,12 @@
                     if ($resultado->num_rows > 0)
                     {
                         $fila = $resultado->fetch_array(MYSQLI_ASSOC);
-                        $this->generarSesion($fila['idProfesor'], $fila['nombre']);
-                        return 1;
+                        $this->generarSesion($fila['idProfesor']);
+                        return 0;
                     }
                     else
                     {
-                        return -3;
+                        return -2;
                     }
                 }
                 else
@@ -66,18 +66,27 @@
         /**
          * Genera la sesión del usuario.
          * @param Number $id ID del profesor.
-         * @param String $nombre Nombre del profesor.
          * @return void
          */
-        public function generarSesion($id, $nombre)
+        public function generarSesion($id)
         {
             ini_set('session.use_strict_mode', true);   // Activar modo estricto.
             ini_set('session.use_only_cookies', 1);     // Forzar las sesiones a usar solo cookies. 
-            session_set_cookie_params(600);             // La sesión del cliente caducará en 600 segundos de inactividad.
+            session_set_cookie_params(0);               // La sesión del cliente caducará cúando se cierre el navegador.
             session_start();                            // Iniciar la sesión.
 
             $_SESSION['idProfesor'] = $id;
-            $_SESSION['nombreProfesor'] = $nombre;
+        }
+
+        /**
+         * Realizar el cierre de sesión del usuario actual.
+         * @return void
+         */
+        public function cerrarSesion()
+        {
+            session_start();
+            session_unset();    // Liberar la variable $_SESSION.
+            session_destroy();  // Destruye los datos de sesión almacenados.
         }
     }
 ?>

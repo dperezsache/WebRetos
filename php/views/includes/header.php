@@ -1,3 +1,9 @@
+<?php
+    // Comprobar que haya sesión
+    session_start();
+    if (!isset($_SESSION['idProfesor']))
+        header('Location: ../login/login.php');
+?>
 <!DOCTYPE html>
 
 <html>

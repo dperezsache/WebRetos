@@ -26,6 +26,10 @@
         <div class="navElemento">
             <a href="modificar.php">Modificar categorías</a>
         </div>
+        <div class="navElementoTitulo">Sesión</div>
+        <div class="navElemento">
+            <a href="../login/logout.php">Cerrar sesión</a>
+        </div>
     </nav>
 
     <div id="divTitulo">
