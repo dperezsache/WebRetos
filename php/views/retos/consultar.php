@@ -1,8 +1,10 @@
 <?php
     require_once('../../controller/controladorretos.php');
     $controlador = new ControladorRetos();
-    $datos = $controlador->obtenerReto($_GET);
 
+    session_start();
+    $datos = $controlador->obtenerReto($_GET);
+    
     // Si no se puede obtener los datos del reto, redireccionar al listado.
     if(!$datos) 
     {
@@ -59,7 +61,7 @@
                 <li><b>Descripción:</b> <?php echo isset($datos['descripcion']) && !empty($datos['descripcion']) ? $datos['descripcion'] : '*En blanco*' ?></li>
                 <li><b>Publicado:</b> <?php echo isset($datos['publicado']) && $datos['publicado'] == 1 ? 'Sí' : 'No' ?></li>
                 <li><b>Fecha de publicación:</b> <?php echo isset($datos['fechaPublicacion']) && isset($datos['publicado']) && $datos['publicado'] == 1 ? $datos['fechaPublicacion'] : 'No publicado' ?></li>
-                <li><b>Profesor:</b> <?php echo $controlador->obtenerNombreProfesor($datos['idProfesor']) ?></li>
+                <li><b>Profesor:</b> <?php echo $controlador->obtenerNombreProfesor() ?></li>
             </ul>
         </div>
         <div class="divBoton">

@@ -2,10 +2,10 @@
     require_once('../../controller/controladorretos.php');
     $controlador = new ControladorRetos();
 
+    include('../includes/header.php');
+    
     $datos = $controlador->obtenerReto($_GET);
     if ($datos == null) $datos = $controlador->obtenerReto($_POST);
-
-    include('../includes/header.php');
 ?>
 <main>
     <nav>

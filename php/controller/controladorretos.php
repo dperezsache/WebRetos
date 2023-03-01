@@ -21,27 +21,34 @@
          */
         public function hayListado($array)
         {
-            if (isset($array['busqueda']) && !empty($array['busqueda']))
+            if (isset($_SESSION['idProfesor']))
             {
-                if (isset($array['filtrado']) && $array['filtrado'] != -1)
+                if (isset($array['busqueda']) && !empty($array['busqueda']))
                 {
-                    return $this->modelo->listadoBusqueda($array['busqueda'], $array['filtrado']);
+                    if (isset($array['filtrado']) && $array['filtrado'] != -1)
+                    {
+                        return $this->modelo->listadoBusqueda($array['busqueda'], $array['filtrado']);
+                    }
+                    else
+                    {
+                        return $this->modelo->listadoBusqueda($array['busqueda'], null);
+                    }       
                 }
                 else
                 {
-                    return $this->modelo->listadoBusqueda($array['busqueda'], null);
-                }       
+                    if (isset($array['filtrado']) && $array['filtrado'] != -1)
+                    {
+                        return $this->modelo->listadoBusqueda(null, $array['filtrado']);
+                    }
+                    else
+                    {
+                        return $this->modelo->listadoRetos();
+                    }
+                }
             }
             else
             {
-                if (isset($array['filtrado']) && $array['filtrado'] != -1)
-                {
-                    return $this->modelo->listadoBusqueda(null, $array['filtrado']);
-                }
-                else
-                {
-                    return $this->modelo->listadoRetos();
-                }
+                return 0;
             }
         }
 
@@ -71,31 +78,45 @@
          */
         public function obtenerReto($array)
         {
-            if (isset($array['id']))
+            if (isset($_SESSION['idProfesor']))
             {
-                return $this->modelo->obtenerReto($array['id']);
-            }
-            else
-            {
-                if (isset($array['reto']))
+                if (isset($array['id']))
                 {
-                    return $this->modelo->obtenerReto($array['reto']);
+                    return $this->modelo->obtenerReto($array['id']);
                 }
                 else
                 {
-                    return null;
+                    if (isset($array['reto']))
+                    {
+                        return $this->modelo->obtenerReto($array['reto']);
+                    }
+                    else
+                    {
+                        echo 'dasdasdasasd';
+                        return null;
+                    }
                 }
+            }
+            else
+            {
+                return null;
             }
         }
 
         /**
          * Devuelve el nombre profesor indicado.
-         * @param Array $id ID del profesor.
          * @return String Nombre del profesor.
          */
-        public function obtenerNombreProfesor($id)
+        public function obtenerNombreProfesor()
         {
-            return $this->modelo->obtenerNombreProfesor($id);
+            if (isset($_SESSION['idProfesor']))
+            {
+                return $this->modelo->obtenerNombreProfesor();
+            }
+            else
+            {
+                return '';
+            }
         }
 
         /**
@@ -105,7 +126,7 @@
          */
         public function borrarReto($array)
         {
-            if (isset($array['id']))
+            if (isset($array['id']) && isset($_SESSION['idProfesor']))
             {
                 return $this->modelo->borrarReto($array['id']);
             }
@@ -122,7 +143,7 @@
          */
         public function publicarReto($array)
         {
-            if (isset($array['id']))
+            if (isset($array['id']) && isset($_SESSION['idProfesor']))
             {
                 return $this->modelo->publicarReto($array['id']);
             }
@@ -139,7 +160,7 @@
          */
         public function obtenerNombreReto($array)
         {
-            if (isset($array['id']))
+            if (isset($array['id']) && isset($_SESSION['idProfesor']))
             {
                 return $this->modelo->obtenerNombreReto($array['id']);
             }
@@ -164,7 +185,14 @@
          */
         public function cargarRetos()
         {
-            return $this->modelo->listadoRetos();
+            if (isset($_SESSION['idProfesor']))
+            {
+                return $this->modelo->listadoRetos();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         /**
@@ -216,7 +244,7 @@
                 else return -7; // Error fecha fin reto vacía
             }
 
-            if ($contador == 6)
+            if ($contador == 6 && isset($_SESSION['idProfesor']))
             {
                 $contador = 0;
 
@@ -290,7 +318,7 @@
                     else return -7; // Error fecha fin reto vacía
                 }
 
-                if ($contador == 6)
+                if ($contador == 6 && isset($_SESSION['idProfesor']))
                 {
                     $contador = 0;
     

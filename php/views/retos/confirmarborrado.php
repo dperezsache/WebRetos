@@ -1,6 +1,8 @@
 <?php
     require_once('../../controller/controladorretos.php');
     $controlador = new ControladorRetos();
+
+    session_start();
     $nombre = $controlador->obtenerNombreReto($_GET);
 
     // Si no se puede obtener el nombre del reto es porque no existe, redireccionar al listado.
