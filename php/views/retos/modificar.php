@@ -29,6 +29,13 @@
         <div class="navElemento">
             <a href="../categorias/modificar.php">Modificar categorías</a>
         </div>
+        <div class="navElementoTitulo">Generación de PDFs</div>
+        <div class="navElemento">
+            <a href="../../generarpdf.php?op=1">Listado de categorías</a>
+        </div>
+        <div class="navElemento">
+            <a href="../../generarpdf.php?op=2">Listado de retos</a>
+        </div>
         <div class="navElementoTitulo">Sesión</div>
         <div class="navElemento">
             <a href="../login/logout.php">Cerrar sesión</a>

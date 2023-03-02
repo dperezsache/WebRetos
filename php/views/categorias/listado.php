@@ -26,6 +26,13 @@
         <div class="navElemento">
             <a href="modificar.php">Modificar categorías</a>
         </div>
+        <div class="navElementoTitulo">Generación de PDFs</div>
+        <div class="navElemento">
+            <a href="../../generarpdf.php?op=1">Listado de categorías</a>
+        </div>
+        <div class="navElemento">
+            <a href="../../generarpdf.php?op=2">Listado de retos</a>
+        </div>
         <div class="navElementoTitulo">Sesión</div>
         <div class="navElemento">
             <a href="../login/logout.php">Cerrar sesión</a>
@@ -36,13 +43,7 @@
         <h1>Listado de categorías</h1>
     </div>
 
-    <div id="divContenido">
-        <form action="../../generarpdf.php" method="POST">
-            <div class="formItem">
-                <button type="submit" class="botonVerde">Generar PDF</button>
-            </div>
-        </form>
-        
+    <div id="divContenido">        
         <div id="divTabla">
             <table>
                 <thead>
