@@ -84,9 +84,8 @@
          */
         public function cerrarSesion()
         {
-            session_start();
-            session_unset();    // Liberar la variable $_SESSION.
-            session_destroy();  // Destruye los datos de sesión almacenados.
+            session_start();   
+            session_destroy();  // Destruye los datos de sesión almacenados (ID de sesión).
         }
     }
 ?>

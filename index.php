@@ -40,6 +40,10 @@
                 <div class="navElemento">
                     <a href="./php/views/categorias/modificar.php">Modificar categorías</a>
                 </div>
+                <div class="navElementoTitulo">Generación de PDFs</div>
+                <div class="navElemento">
+                    <a href="./php/views/generar/index.php">Generar</a>
+                </div>
                 <div class="navElementoTitulo">Sesión</div>
                 <div class="navElemento">
                     <a href="./php/views/login/logout.php">Cerrar sesión</a>
