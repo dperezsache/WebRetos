@@ -35,6 +35,7 @@ nav div.navElemento {
     padding: 2.016129032258065%;   /* 5px / 248px (ancho padre) * 100 */
     font-weight: bold;
     margin: 10px 0;
+    text-align: center;
 }
 
 nav div.navElemento a {
@@ -226,6 +227,10 @@ div.divBoton {
     padding: 5px;
 }
 
+div#divBotonGenerar {
+    width: 80px;
+}
+
 div.error,
 div.aviso,
 div.exito {
@@ -292,7 +297,6 @@ div#divConsulta li {
 
     nav div.navElemento {
         margin: 0;
-        text-align: center;
     }
 
     div#divTitulo {
