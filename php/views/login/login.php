@@ -14,6 +14,10 @@
 
         switch($resultado)
         {
+            case -3:
+                echo '<div class="error">Error: Contraseña incorrecta, pruebe de nuevo.</div>';
+                break;
+
             case -2:
                 echo '<div class="error">Error: Los datos introducidos son incorrectos, pruebe de nuevo.</div>';
                 break;

@@ -22,7 +22,6 @@
          * Iniciar sesión.
          * @param String $correo Correo del usuario.
          * @param String $password Contraseña.
-         * @return void
          */
         public function inicioSesion($correo, $password)
         {
@@ -32,8 +31,9 @@
 
                 if ($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare("SELECT * FROM profesores WHERE correo=? AND contrasenia=?");
-                    $consulta->bind_param('ss', $correo, $password);
+                    $sql = "SELECT * FROM profesores WHERE correo=?";
+                    $consulta = $this->conexion->prepare($sql);
+                    $consulta->bind_param('s', $correo);
                     $consulta->execute();
 
                     $resultado = $consulta->get_result();
@@ -44,29 +44,37 @@
                     if ($resultado->num_rows > 0)
                     {
                         $fila = $resultado->fetch_array(MYSQLI_ASSOC);
-                        $this->generarSesion($fila['idProfesor']);
-                        return 1;
+                        $hash = $fila['contrasenia'];
+
+                        if (password_verify($password, $hash))
+                        {
+                            $this->generarSesion($fila['idProfesor']);
+                            return 1;   // Validacion OK.
+                        }
+                        else
+                        {
+                            return -3;  // Validacion contraseña incorrecta.
+                        }
                     }
                     else
                     {
-                        return -2;
+                        return -2;  // Validacion incorrecta.
                     }
                 }
                 else
                 {
-                    return -1;
+                    return -1;  // No conexión.
                 }
             }
             catch(mysqli_sql_exception $e)
             {
-                return $e->getCode();
+                return $e->getCode();   // Devolver código de error.
             }
         }
 
         /**
          * Genera la sesión del usuario.
          * @param Number $id ID del profesor.
-         * @return void
          */
         public function generarSesion($id)
         {
@@ -80,7 +88,6 @@
 
         /**
          * Realizar el cierre de sesión del usuario actual.
-         * @return void
          */
         public function cerrarSesion()
         {
