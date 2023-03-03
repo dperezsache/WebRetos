@@ -32,6 +32,7 @@
                 if ($this->conexion != null)
                 {
                     $sql = "SELECT * FROM profesores WHERE correo=?";
+                    
                     $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('s', $correo);
                     $consulta->execute();

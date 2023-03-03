@@ -31,7 +31,8 @@
 
                 if ($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare('SELECT * FROM categorias ORDER BY idCategoria ASC');
+                    $sql = "SELECT * FROM categorias ORDER BY idCategoria ASC";
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->execute();
                     $resultado = $consulta->get_result();
 
@@ -71,7 +72,8 @@
                 
                 if ($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare("SELECT nombreCategoria FROM categorias WHERE idCategoria=?");
+                    $sql = "SELECT nombreCategoria FROM categorias WHERE idCategoria=?";
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('i', $id);
                     $consulta->execute();
                     $resultado = $consulta->get_result();
@@ -123,18 +125,21 @@
                     if ($busqueda != null && $filtrado != null) // Buscar y filtrar
                     {
                         $busqueda = "%" . $busqueda . "%";
-                        $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE nombreReto LIKE ? AND idCategoria = ? AND idProfesor = ?");
+                        $sql = "SELECT * FROM retos WHERE nombreReto LIKE ? AND idCategoria = ? AND idProfesor = ?";
+                        $consulta = $this->conexion->prepare($sql);
                         $consulta->bind_param('sii', $busqueda, $filtrado, $idProfesor);
                     }
                     else if ($busqueda != null) // Buscar
                     {
                         $busqueda = "%" . $busqueda . "%";
-                        $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE nombreReto LIKE ? AND idProfesor = ?");
+                        $sql = "SELECT * FROM retos WHERE nombreReto LIKE ? AND idProfesor = ?";
+                        $consulta = $this->conexion->prepare($sql);
                         $consulta->bind_param('si', $busqueda, $idProfesor);
                     }
                     else if ($filtrado != null) // Filtrar
                     {
-                        $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE idCategoria = ? AND idProfesor = ?");
+                        $sql = "SELECT * FROM retos WHERE idCategoria = ? AND idProfesor = ?";
+                        $consulta = $this->conexion->prepare($sql);
                         $consulta->bind_param('ii', $filtrado, $idProfesor);
                     }
 
@@ -181,8 +186,9 @@
                 if ($this->conexion != null)
                 {
                     $idProfesor = $_SESSION['idProfesor'];
+                    $sql = "DELETE FROM retos WHERE idReto=? AND idProfesor=?";
 
-                    $consulta = $this->conexion->prepare("DELETE FROM retos WHERE idReto=? AND idProfesor=?");
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('ii', $id, $idProfesor);
                     $consulta->execute();
                   
@@ -232,7 +238,8 @@
                     $fechaPublicacion = $this->obtenerFechaActual();
                     $publicado = 1;
 
-                    $consulta = $this->conexion->prepare("UPDATE retos SET fechaPublicacion=?, publicado=? WHERE idReto=? AND idProfesor=?");
+                    $sql = "UPDATE retos SET fechaPublicacion=?, publicado=? WHERE idReto=? AND idProfesor=?";
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('siii', $fechaPublicacion, $publicado, $id, $idProfesor);
                     $consulta->execute();
     
@@ -273,8 +280,9 @@
                 if ($this->conexion != null)
                 {
                     $idProfesor = $_SESSION['idProfesor'];
+                    $sql = "SELECT * FROM retos WHERE idProfesor=? ORDER BY idReto ASC";
 
-                    $consulta = $this->conexion->prepare('SELECT * FROM retos WHERE idProfesor=? ORDER BY idReto ASC');
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('i', $idProfesor);
                     $consulta->execute();
                     $resultado = $consulta->get_result();
@@ -318,7 +326,9 @@
                 
                 if ($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare("SELECT nombreReto FROM retos WHERE idReto=?");
+                    $sql = "SELECT nombreReto FROM retos WHERE idReto=?";
+
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('i', $id);
                     $consulta->execute();
                     $resultado = $consulta->get_result();
@@ -369,8 +379,9 @@
                 if ($this->conexion != null)
                 {
                     $idProfesor = $_SESSION['idProfesor'];
+                    $sql = "SELECT * FROM retos WHERE idReto=? AND idProfesor=?";
 
-                    $consulta = $this->conexion->prepare("SELECT * FROM retos WHERE idReto=? AND idProfesor=?");
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('ii', $id, $idProfesor);
                     $consulta->execute();
                     $resultado = $consulta->get_result();
@@ -412,8 +423,9 @@
                 if ($this->conexion != null)
                 {
                     $idProfesor = $_SESSION['idProfesor'];
+                    $sql = "SELECT nombre FROM profesores WHERE idProfesor=?";
 
-                    $consulta = $this->conexion->prepare("SELECT nombre FROM profesores WHERE idProfesor=?");
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('i', $idProfesor);
                     $consulta->execute();
 
@@ -488,7 +500,8 @@
                         $fechaPublicacion = '1970-01-01 00:00:00';
                     }
                     
-                    $consulta = $this->conexion->prepare("INSERT INTO retos(nombreReto, dirigido, descripcion, fechaInicioInscripcion, fechaFinInscripcion, fechaInicioReto, fechaFinReto, fechaPublicacion, publicado, idProfesor, idCategoria) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+                    $sql = "INSERT INTO retos(nombreReto, dirigido, descripcion, fechaInicioInscripcion, fechaFinInscripcion, fechaInicioReto, fechaFinReto, fechaPublicacion, publicado, idProfesor, idCategoria) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('ssssssssiii', $nombre, $dirigido, $descripcion, $fechaInicioInscripcion, $fechaFinInscripcion, $fechaInicioReto, $fechaFinReto, $fechaPublicacion, $publicado, $idProfesor, $idCategoria);
                     $consulta->execute();
 
@@ -557,8 +570,9 @@
 
                     $idReto = $arrayGet['id'];
                     if ($idReto == null) $idReto = $arrayPost['reto'];
-                    print_r($arrayPost);
-                    $consulta = $this->conexion->prepare("UPDATE retos SET nombreReto=?, dirigido=?, descripcion=?, fechaInicioInscripcion=?, fechaFinInscripcion=?, fechaInicioReto=?, fechaFinReto=?, idCategoria=? WHERE idReto=? AND idProfesor=?");
+                    
+                    $sql = "UPDATE retos SET nombreReto=?, dirigido=?, descripcion=?, fechaInicioInscripcion=?, fechaFinInscripcion=?, fechaInicioReto=?, fechaFinReto=?, idCategoria=? WHERE idReto=? AND idProfesor=?";
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('sssssssiii', $nombre, $dirigido, $descripcion, $fechaInicioInscripcion, $fechaFinInscripcion, $fechaInicioReto, $fechaFinReto, $idCategoria, $idReto, $idProfesor);
                     $consulta->execute();
 

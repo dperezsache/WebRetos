@@ -32,7 +32,9 @@
                 
                 if ($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare("INSERT INTO categorias(nombreCategoria) VALUES(?)");
+                    $sql = "INSERT INTO categorias(nombreCategoria) VALUES(?)";
+
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('s', $nombre);
                     $consulta->execute();
 
@@ -73,7 +75,9 @@
                 
                 if ($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare("DELETE FROM categorias WHERE idCategoria=?");
+                    $sql = "DELETE FROM categorias WHERE idCategoria=?";
+
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('i', $id);
                     $consulta->execute();
 
@@ -115,7 +119,9 @@
                 
                 if ($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare("UPDATE categorias SET idCategoria=?, nombreCategoria=? WHERE idCategoria=?");
+                    $sql = "UPDATE categorias SET idCategoria=?, nombreCategoria=? WHERE idCategoria=?";
+
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('isi', $id, $nombre, $id);
                     $consulta->execute();
                     
@@ -156,7 +162,9 @@
                 
                 if ($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare("SELECT nombreCategoria FROM categorias WHERE idCategoria=?");
+                    $sql = "SELECT nombreCategoria FROM categorias WHERE idCategoria=?";
+
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->bind_param('i', $id);
                     $consulta->execute();
                     $resultado = $consulta->get_result();
@@ -205,7 +213,9 @@
                 
                 if ($this->conexion != null)
                 {
-                    $consulta = $this->conexion->prepare("SELECT * FROM categorias ORDER BY idCategoria ASC");
+                    $sql = "SELECT * FROM categorias ORDER BY idCategoria ASC";
+
+                    $consulta = $this->conexion->prepare($sql);
                     $consulta->execute();
                     $resultado = $consulta->get_result();
 

@@ -22,7 +22,6 @@
 
         /**
          * Iniciar conexión.
-         * @return void
          */
         private function inicializar()
         {

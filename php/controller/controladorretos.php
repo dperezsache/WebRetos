@@ -92,7 +92,6 @@
                     }
                     else
                     {
-                        echo 'dasdasdasasd';
                         return null;
                     }
                 }
