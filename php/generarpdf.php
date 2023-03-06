@@ -3,9 +3,6 @@
     require_once('./controller/controladorcategorias.php');
     require_once('./controller/controladorretos.php');
 
-    $controladorCategorias = new ControladorCategorias();
-    $controladorRetos = new ControladorRetos();
-
     if (isset($_GET['op']))
     {
         $opcion = $_GET['op'];
@@ -13,12 +10,11 @@
         switch($opcion)
         {
             case 1:
-                listadoCategorias($controladorCategorias);
+                listadoCategorias();
                 break;
 
             case 2:
-                session_start();    // Ya que se necesita sesión activa para sacar los retos.
-                listadoRetos($controladorRetos);
+                listadoRetos();
                 break;
 
             default:
@@ -33,10 +29,11 @@
 
     /**
      * Crear dentro del PDF una tabla con los datos de las categorías.
-     * @param ControladorCategorias $controlador Controlador de categorías.
      */
-    function listadoCategorias($controlador)
+    function listadoCategorias()
     {
+        $controlador = new ControladorCategorias();
+
         // Instanciar objeto FPDF
         $pdf = new FPDF();
         $pdf->AddPage();
@@ -91,10 +88,11 @@
 
     /**
      * Crear dentro del PDF una tabla con los datos de los retos del profesor actual.
-     * @param ControladorRetos $controlador Controlador de retos.
      */
-    function listadoRetos($controlador)
+    function listadoRetos()
     {
+        $controlador = new ControladorRetos();
+
         // Instanciar objeto FPDF
         $pdf = new FPDF();
         $pdf->AddPage();
@@ -104,6 +102,7 @@
         $pdf->Cell(50, 10, iconv('UTF-8', 'windows-1252', 'Listado de retos'), 0, 0, 'C');
         $pdf->Ln(10);
 
+        session_start();    // Ya que se necesita sesión activa para sacar los retos.
         if ($controlador->cargarRetos() == 1)
         {
             $retos = $controlador->obtenerListado();
