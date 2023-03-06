@@ -37,21 +37,21 @@
      */
     function listadoCategorias($controlador)
     {
+        // Instanciar objeto FPDF
+        $pdf = new FPDF();
+        $pdf->AddPage();
+
+        // Título inicio documento
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->Cell(50, 10, iconv('UTF-8', 'windows-1252', 'Listado de categorías'), 0, 0, 'C');
+        $pdf->Ln(10);
+
         if ($controlador->cargarListado() == 1)
         {
             $categorias = $controlador->obtenerListado();
-
-            // Instanciar objeto FPDF
-            $pdf = new FPDF();
-            $pdf->AddPage();
-            $header = array('ID', 'Categoría');
-    
-            // Título inicio documento
-            $pdf->SetFont('Arial', 'B', 14);
-            $pdf->Cell(50, 10, iconv('UTF-8', 'windows-1252', 'Listado de categorías'), 0, 0, 'C');
-            $pdf->Ln(10);
     
             // Cabecera tabla
+            $header = array('ID', 'Categoría');
             $pdf->SetFillColor(255, 0, 0);
             $pdf->SetTextColor(255);
             $pdf->SetDrawColor(128, 0, 0);
@@ -72,42 +72,45 @@
             while($fila = $categorias->fetch_array(MYSQLI_ASSOC))
             {
                 foreach($fila as $columna) 
+                {
                     $pdf->Cell(40, 6, iconv('UTF-8', 'windows-1252', $columna), 1);
-    
+                }
+                    
                 $pdf->Ln();
             }
-    
-            // Generar
-            $pdf->Output('categorias.pdf', 'D');
         }
         else
         {
-            header('Location: ../index.php');
+            $pdf->SetFont('Arial', '', 14);
+            $pdf->Cell(100, 10, iconv('UTF-8', 'windows-1252', 'No existen categorías.'), 0, 0, 'C');
         }
+
+        // Generar
+        $pdf->Output('categorias.pdf', 'D');
     }
 
     /**
-     * Crear dentro del PDF una tabla con los datos de los retos.
+     * Crear dentro del PDF una tabla con los datos de los retos del profesor actual.
      * @param ControladorRetos $controlador Controlador de retos.
      */
     function listadoRetos($controlador)
     {
+        // Instanciar objeto FPDF
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        
+        // Título inicio documento
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->Cell(50, 10, iconv('UTF-8', 'windows-1252', 'Listado de retos'), 0, 0, 'C');
+        $pdf->Ln(10);
+
         if ($controlador->cargarRetos() == 1)
         {
             $retos = $controlador->obtenerListado();
-
-            // Instanciar objeto FPDF
-            $pdf = new FPDF();
-            $pdf->AddPage();
-            $header = array('ID', 'Nombre', 'Dirigido a', 'Fecha inicio', 'Fecha fin');
-
-            // Título inicio documento
-            $pdf->SetFont('Arial', 'B', 14);
-            $pdf->Cell(50, 10, iconv('UTF-8', 'windows-1252', 'Listado de retos'), 0, 0, 'C');
-            $pdf->Ln(10);
     
             // Cabecera tabla
-            $w = array(30, 45, 35, 40, 40);
+            $header = array('ID', 'Nombre', 'Dirigido a', 'Fecha inicio', 'Fecha fin');
+            $w = array(20, 55, 35, 40, 40);
             $pdf->SetFillColor(0, 0, 255);
             $pdf->SetTextColor(255, 255, 255);
             $pdf->SetDrawColor(0, 0, 128);
@@ -148,13 +151,14 @@
 
                 $pdf->Ln();
             }
-    
-            // Generar
-            $pdf->Output('retos.pdf', 'D');
         }
         else
         {
-            header('Location: ../index.php');
+            $pdf->SetFont('Arial', '', 14);
+            $pdf->Cell(100, 10, iconv('UTF-8', 'windows-1252', 'El profesor actual no ha dado de alta ningún reto.'), 0, 0, 'C');
         }
+
+        // Generar
+        $pdf->Output('retos.pdf', 'D');
     }
 ?>
