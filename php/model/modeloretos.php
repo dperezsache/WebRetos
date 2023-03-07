@@ -20,46 +20,6 @@
         }
 
         /**
-         * Devuelve el listado de categorias
-         * @return mixed
-         */
-        public function listadoCategorias()
-        {
-            try
-            {
-                $this->obtenerConexion();
-
-                if ($this->conexion != null)
-                {
-                    $sql = "SELECT * FROM categorias ORDER BY idCategoria ASC";
-                    $consulta = $this->conexion->prepare($sql);
-                    $consulta->execute();
-                    $resultado = $consulta->get_result();
-
-                    $consulta->close();
-                    $this->conexion->close();
-
-                    if ($resultado->num_rows > 0)
-                    {
-                        return $resultado;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch(mysqli_sql_exception $e)
-            {
-                return null;
-            }
-        }
-
-        /**
          * Devuelve el nombre de la categoría
          * @param Number $id ID de la categoría a sacar.
          * @return String Categoría.
@@ -151,7 +111,7 @@
 
                     if ($resultado->num_rows > 0)
                     {
-                        $this->listaRetos = $resultado;
+                        $this->listaRetos = $resultado->fetch_all(MYSQLI_ASSOC);
                         return 1;
                     }
                     else
@@ -292,7 +252,7 @@
                     
                     if ($resultado->num_rows > 0)
                     {
-                        $this->listaRetos = $resultado;
+                        $this->listaRetos = $resultado->fetch_all(MYSQLI_ASSOC);
                         return 1;
                     }
                     else

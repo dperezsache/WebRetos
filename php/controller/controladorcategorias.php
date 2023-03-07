@@ -113,5 +113,22 @@
                 return '';
             }
         }
+
+        /**
+         * Sacar el nombre de la categoría.
+         * @param Number $id ID de la categoría.
+         * @return mixed La categoría.
+         */
+        public function obtenerCategoria($id)
+        {
+            if (isset($id))
+            {
+                return $this->modelo->obtenerNombreCategoria($id);
+            }
+            else
+            {
+                return '';
+            }
+        }
     }
 ?>

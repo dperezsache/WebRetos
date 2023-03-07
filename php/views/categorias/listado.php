@@ -28,10 +28,10 @@
         </div>
         <div class="navElementoTitulo">Generación de PDFs</div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=1">Listado de categorías</a>
+            <a href="../../script/generarpdf.php?op=1">Listado de categorías</a>
         </div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=2">Listado de retos</a>
+            <a href="../../script/generarpdf.php?op=2">Listado de retos</a>
         </div>
         <div class="navElementoTitulo">Sesión</div>
         <div class="navElemento">
@@ -83,17 +83,17 @@
                         {
                             $datos = $controlador->obtenerListado();
                             
-                            while($fila = $datos->fetch_array(MYSQLI_ASSOC))
+                            for($i=0; $i<count($datos); $i++)
                             {
                                 echo '<tr>';
 
-                                foreach($fila as $valor)
+                                foreach($datos[$i] as $valor)
                                 {
                                     echo '<td>' . $valor . '</td>';
                                 }
 
-                                echo '<td><p class="inline"><a href="confirmarborrado.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">delete</span></a></p>';
-                                echo '<p class="inline"><a href="modificar.php?id=' . $fila['idCategoria'] . '"><span class="material-icons">edit</span></a></p></td>';
+                                echo '<td><p class="inline"><a href="confirmarborrado.php?id=' . $datos[$i]['idCategoria'] . '"><span class="material-icons">delete</span></a></p>';
+                                echo '<p class="inline"><a href="modificar.php?id=' . $datos[$i]['idCategoria'] . '"><span class="material-icons">edit</span></a></p></td>';
                                 echo '</tr>';
                             }
                         }

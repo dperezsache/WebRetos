@@ -1,5 +1,8 @@
 <?php
+    require_once('../../controller/controladorcategorias.php');
     require_once('../../controller/controladorretos.php');
+
+    $controladorCategorias = new ControladorCategorias();
     $controlador = new ControladorRetos();
 
     include('../includes/header.php');
@@ -28,10 +31,10 @@
         </div>
         <div class="navElementoTitulo">Generación de PDFs</div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=1">Listado de categorías</a>
+            <a href="../../script/generarpdf.php?op=1">Listado de categorías</a>
         </div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=2">Listado de retos</a>
+            <a href="../../script/generarpdf.php?op=2">Listado de retos</a>
         </div>
         <div class="navElementoTitulo">Sesión</div>
         <div class="navElemento">
@@ -60,12 +63,12 @@
                     Categoría
                     <select name="categoria" class="form-select">
                         <?php
-                            $datos = $controlador->obtenerCategorias();
-
-                            if($datos != null)
+                            if ($controladorCategorias->cargarListado() == 1)
                             {
-                                while($fila = $datos->fetch_array(MYSQLI_ASSOC)) 
-                                    echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                                $categorias = $controladorCategorias->obtenerListado();
+
+                                for($i=0; $i<count($categorias); $i++) 
+                                    echo '<option value="' . $categorias[$i]['idCategoria'] . '">' . $categorias[$i]['nombreCategoria'] . '</option>';
                             }
                         ?>
                     </select>

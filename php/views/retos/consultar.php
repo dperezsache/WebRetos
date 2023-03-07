@@ -1,5 +1,8 @@
 <?php
+    require_once('../../controller/controladorcategorias.php');
     require_once('../../controller/controladorretos.php');
+
+    $controladorCategorias = new ControladorCategorias();
     $controlador = new ControladorRetos();
 
     session_start();
@@ -39,10 +42,10 @@
         </div>
         <div class="navElementoTitulo">Generación de PDFs</div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=1">Listado de categorías</a>
+            <a href="../../script/generarpdf.php?op=1">Listado de categorías</a>
         </div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=2">Listado de retos</a>
+            <a href="../../script/generarpdf.php?op=2">Listado de retos</a>
         </div>
         <div class="navElementoTitulo">Sesión</div>
         <div class="navElemento">
@@ -60,7 +63,7 @@
                 <li><b>ID del reto:</b> <?php echo $_GET['id'] ?></li>
                 <li><b>Nombre del reto:</b> <?php echo isset($datos['nombreReto']) ? $datos['nombreReto'] : '' ?></li>
                 <li><b>Dirigido a:</b> <?php echo isset($datos['dirigido']) ? $datos['dirigido'] : '' ?></li>
-                <li><b>Categoría:</b> <?php echo $controlador->obtenerCategoria($datos['idCategoria']) ?></li>
+                <li><b>Categoría:</b> <?php echo $controladorCategorias->obtenerCategoria($datos['idCategoria']) ?></li>
                 <li><b>Fecha inicio de inscripción:</b> <?php echo isset($datos['fechaInicioInscripcion']) ? $datos['fechaInicioInscripcion'] : '' ?></li>
                 <li><b>Fecha fin de inscripción:</b> <?php echo isset($datos['fechaFinInscripcion']) ? $datos['fechaFinInscripcion'] : '' ?></li>
                 <li><b>Fecha inicio del reto:</b> <?php echo isset($datos['fechaInicioReto']) ? $datos['fechaInicioReto'] : '' ?></li>

@@ -42,10 +42,10 @@
                 </div>
                 <div class="navElementoTitulo">Generación de PDFs</div>
                 <div class="navElemento">
-                    <a href="./php/generarpdf.php?op=1">Listado de categorías</a>
+                    <a href="./php/script/generarpdf.php?op=1">Listado de categorías</a>
                 </div>
                 <div class="navElemento">
-                    <a href="./php/generarpdf.php?op=2">Listado de retos</a>
+                    <a href="./php/script/generarpdf.php?op=2">Listado de retos</a>
                 </div>
                 <div class="navElementoTitulo">Sesión</div>
                 <div class="navElemento">

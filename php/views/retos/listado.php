@@ -1,5 +1,8 @@
 <?php
+    require_once('../../controller/controladorcategorias.php');
     require_once('../../controller/controladorretos.php');
+
+    $controladorCategorias = new ControladorCategorias();
     $controlador = new ControladorRetos();
 
     include('../includes/header.php');
@@ -28,10 +31,10 @@
         </div>
         <div class="navElementoTitulo">Generación de PDFs</div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=1">Listado de categorías</a>
+            <a href="../../script/generarpdf.php?op=1">Listado de categorías</a>
         </div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=2">Listado de retos</a>
+            <a href="../../script/generarpdf.php?op=2">Listado de retos</a>
         </div>
         <div class="navElementoTitulo">Sesión</div>
         <div class="navElemento">
@@ -56,9 +59,13 @@
                     <select name="filtrado" class="form-select">
                         <option value="-1">Sin filtro</option>
                         <?php
-                            $categorias = $controlador->obtenerCategorias();
-                            while($fila = $categorias->fetch_array(MYSQLI_ASSOC))
-                                echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                            if ($controladorCategorias->cargarListado() == 1)
+                            {
+                                $categorias = $controladorCategorias->obtenerListado();
+
+                                for($i=0; $i<count($categorias); $i++)
+                                    echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                            }
                         ?>
                     </select>
                 </label>
@@ -112,25 +119,25 @@
 
                         if ($datos != null)
                         {
-                            while($fila = $datos->fetch_array(MYSQLI_ASSOC))
+                            for($i=0; $i<count($datos); $i++)
                             {
                                 $publicado = false;
                                 echo '<tr>';
 
-                                foreach($fila as $indice => $valor)
+                                foreach($datos[$i] as $indice => $valor)
                                 {
                                     switch($indice)
                                     {
                                         case 'idReto':
-                                            echo '<td>' . $fila['idReto'] . '</td>';
+                                            echo '<td>' . $datos[$i]['idReto'] . '</td>';
                                             break;
 
                                         case 'nombreReto':
-                                            echo '<td>' . $fila['nombreReto'] . '</td>';
+                                            echo '<td>' . $datos[$i]['nombreReto'] . '</td>';
                                             break;
 
                                         case 'publicado':
-                                            if ($fila['publicado'] == 1) {
+                                            if ($datos[$i]['publicado'] == 1) {
                                                 echo '<td class="colPublicado">Sí</td>';
                                                 $publicado = true;
                                             }
@@ -141,15 +148,15 @@
                                             break;
 
                                         case 'idCategoria':
-                                            echo '<td>' . $controlador->obtenerCategoria($valor) . '</td>';
+                                            echo '<td>' . $controladorCategorias->obtenerCategoria($valor) . '</td>';
                                             break;
                                     }
                                 }
 
-                                echo '<td><p class="inline"><a href="confirmarborrado.php?id=' . $fila['idReto'] . '"><span class="material-icons">delete</span></a></p>';
-                                echo '<p class="inline"><a href="modificar.php?id=' . $fila['idReto'] . '"><span class="material-icons">edit</span></a></p>';
-                                echo '<p class="inline"><a href="consultar.php?id=' . $fila['idReto'] . '"><span class="material-icons">search</span></a></p>';
-                                if (!$publicado) echo '<p class="inline"><a href="confirmarpublicacion.php?id=' . $fila['idReto'] .'"><span class="material-icons">add</span></a></p>';
+                                echo '<td><p class="inline"><a href="confirmarborrado.php?id=' . $datos[$i]['idReto'] . '"><span class="material-icons">delete</span></a></p>';
+                                echo '<p class="inline"><a href="modificar.php?id=' . $datos[$i]['idReto'] . '"><span class="material-icons">edit</span></a></p>';
+                                echo '<p class="inline"><a href="consultar.php?id=' . $datos[$i]['idReto'] . '"><span class="material-icons">search</span></a></p>';
+                                if (!$publicado) echo '<p class="inline"><a href="confirmarpublicacion.php?id=' . $datos[$i]['idReto'] .'"><span class="material-icons">add</span></a></p>';
                                 echo '</td></tr>';
                             }
                         }

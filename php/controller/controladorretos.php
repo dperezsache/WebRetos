@@ -62,16 +62,6 @@
         }
 
         /**
-         * Devuelve la categoría indicada.
-         * @param Number $id ID de la categoría.
-         * @return String Categoría.
-         */
-        public function obtenerCategoria($id)
-        {
-            return $this->modelo->obtenerCategoria($id);
-        }
-
-        /**
          * Devuelve reto indicado.
          * @param Array $array Array del reto.
          * @return mixed Datos del reto.
@@ -167,15 +157,6 @@
             {
                 return '';
             }
-        }
-
-        /**
-         * Obtiene el listado de categorías
-         * @return mixed
-         */
-        public function obtenerCategorias()
-        {
-            return $this->modelo->listadoCategorias();
         }
 
         /**

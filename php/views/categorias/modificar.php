@@ -54,18 +54,15 @@
                             if($controlador->cargarListado() == 1)
                             {
                                 $categorias = $controlador->obtenerListado();
-
-                                if($categorias != null)
+                                var_dump($categorias);
+                                for($i=0; $i<count($categorias); $i++)
                                 {
-                                    while($fila = $categorias->fetch_array(MYSQLI_ASSOC))
-                                    {
-                                        if($fila['idCategoria'] == $_GET['id'])
-                                            echo '<option selected value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                                    if($categorias[$i]['idCategoria'] == $_GET['id'])
+                                        echo '<option selected value="' . $categorias[$i]['idCategoria'] . '">' . $categorias[$i]['nombreCategoria'] . '</option>';
 
-                                        else
-                                            echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
-                                    }   
-                                }
+                                    else
+                                        echo '<option value="' . $categorias[$i]['idCategoria'] . '">' . $categorias[$i]['nombreCategoria'] . '</option>';
+                                }   
                             }
                         ?>
                     </select>

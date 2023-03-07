@@ -1,7 +1,7 @@
 <?php
-    require_once('./fpdf/fpdf.php');
-    require_once('./controller/controladorcategorias.php');
-    require_once('./controller/controladorretos.php');
+    require_once('../fpdf/fpdf.php');
+    require_once('../controller/controladorcategorias.php');
+    require_once('../controller/controladorretos.php');
 
     if (isset($_GET['op']))
     {
@@ -66,9 +66,9 @@
             $pdf->SetFillColor(224, 235, 255);
             $pdf->SetTextColor(0);
     
-            while($fila = $categorias->fetch_array(MYSQLI_ASSOC))
+            for($i=0; $i<count($categorias); $i++)
             {
-                foreach($fila as $columna) 
+                foreach($categorias[$i] as $columna) 
                 {
                     $pdf->Cell(40, 6, iconv('UTF-8', 'windows-1252', $columna), 1);
                 }
@@ -127,13 +127,13 @@
             $pdf->SetFillColor(224, 235, 255);
             $pdf->SetTextColor(0);
     
-            while($fila = $retos->fetch_array(MYSQLI_ASSOC))
+            for($i=0; $i<count($retos); $i++)
             {
-                $id = $fila['idReto'];
-                $nombre = $fila['nombreReto'];
-                $dirigido = $fila['dirigido'];
-                $inicio = $fila['fechaInicioReto'];
-                $fin = $fila['fechaFinReto'];
+                $id = $retos[$i]['idReto'];
+                $nombre = $retos[$i]['nombreReto'];
+                $dirigido = $retos[$i]['dirigido'];
+                $inicio = $retos[$i]['fechaInicioReto'];
+                $fin = $retos[$i]['fechaFinReto'];
 
                 // Formatear fechas y horas a fechas sin horas
                 $f = new DateTime($inicio);

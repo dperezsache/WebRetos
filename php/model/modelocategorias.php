@@ -224,7 +224,7 @@
 
                     if ($resultado->num_rows > 0)
                     {
-                        $this->listaCategorias = $resultado;
+                        $this->listaCategorias = $resultado->fetch_all(MYSQLI_ASSOC);
                         return 1;
                     }
                     else

@@ -1,5 +1,8 @@
 <?php
+    require_once('../../controller/controladorcategorias.php');
     require_once('../../controller/controladorretos.php');
+
+    $controladorCategorias = new ControladorCategorias();
     $controlador = new ControladorRetos();
 
     include('../includes/header.php');
@@ -31,10 +34,10 @@
         </div>
         <div class="navElementoTitulo">Generación de PDFs</div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=1">Listado de categorías</a>
+            <a href="../../script/generarpdf.php?op=1">Listado de categorías</a>
         </div>
         <div class="navElemento">
-            <a href="../../generarpdf.php?op=2">Listado de retos</a>
+            <a href="../../script/generarpdf.php?op=2">Listado de retos</a>
         </div>
         <div class="navElementoTitulo">Sesión</div>
         <div class="navElemento">
@@ -59,13 +62,13 @@
                             
                             if ($retos != null)
                             {
-                                while($fila = $retos->fetch_array(MYSQLI_ASSOC))
+                                for($i=0; $i<count($retos); $i++)
                                 {
-                                    if ($fila['idReto'] == $datos['idReto'])
-                                        echo '<option selected value="' . $fila['idReto'] . '">' . $fila['nombreReto'] . '</option>';
+                                    if ($retos[$i]['idReto'] == $datos['idReto'])
+                                        echo '<option selected value="' . $retos[$i]['idReto'] . '">' . $retos[$i]['nombreReto'] . '</option>';
 
                                     else
-                                        echo '<option value="' . $fila['idReto'] . '">' . $fila['nombreReto'] . '</option>';
+                                        echo '<option value="' . $retos[$i]['idReto'] . '">' . $retos[$i]['nombreReto'] . '</option>';
                                 }
                             }
                         ?>
@@ -87,17 +90,17 @@
                     Categoría
                     <select name="categoria">
                         <?php
-                            $categorias = $controlador->obtenerCategorias();
-
-                            if ($categorias != null)
+                            if ($controladorCategorias->cargarListado() == 1)
                             {
-                                while($fila = $categorias->fetch_array(MYSQLI_ASSOC))
+                                $categorias = $controladorCategorias->obtenerListado();
+
+                                for($i=0; $i<count($categorias); $i++)
                                 {
-                                    if ($fila['idCategoria'] == $datos['idCategoria'])
-                                        echo '<option selected value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                                    if ($categorias[$i]['idCategoria'] == $categorias[$i]['idCategoria'])
+                                        echo '<option selected value="' . $categorias[$i]['idCategoria'] . '">' . $categorias[$i]['nombreCategoria'] . '</option>';
     
                                     else
-                                        echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                                        echo '<option value="' . $categorias[$i]['idCategoria'] . '">' . $categorias[$i]['nombreCategoria'] . '</option>';
                                 }
                             }
                         ?>
