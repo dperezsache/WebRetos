@@ -1,7 +1,5 @@
 <?php
-
-use Shuchkin\SimpleXLSX;
-
+    use Shuchkin\SimpleXLSX;
     require_once('../config/configdb.php');
     require_once('../config/config.php');
     require_once('../simplexlsx/SimpleXLSX.php');
