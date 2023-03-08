@@ -144,6 +144,12 @@ div.formItem textarea {
     background-color: white;
 }
 
+div.formItem input[type="file"] {
+    border: 0;
+    border-radius: 0;
+    background-color: aliceblue;
+}
+
 button.botonRojo,
 button.botonVerde,
 button.botonNeutro {

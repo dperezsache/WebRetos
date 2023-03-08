@@ -59,6 +59,16 @@
                 <div class="exito">
                     <h3>Bienvenido, elige una de las opciones del menú.</h3>
                 </div>
+                <form action="./php/script/insercionprofesores.php" enctype="multipart/form-data" method="POST" id="formAlta">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="30000"/>
+                    <div class="formItem">
+                        <label for="subida">Importar profesores</label>
+                        <input type="file" name="subida" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                    </div>
+                    <div class="formItem">
+                        <button type="submit" class="botonVerde">Importar</button>
+                    </div>
+                </form>
             </div>
         </main>
         <footer>
