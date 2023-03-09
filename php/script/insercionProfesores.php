@@ -9,9 +9,16 @@
     class InsercionProfesores
     {
         private $conexion;
+
         private $nombres;
         private $correos;
         private $passwords;
+
+        private $nombre;
+        private $correo;
+        private $password;
+
+        public $errorTexto;
 
         /**
          * Obtener la conexión con la BBDD.
@@ -53,8 +60,7 @@
                                 if (!empty($row[2])) array_push($this->passwords, $row[2]);
                             }
 
-                            return 1;
-                            //return $this->insercionProfesores();
+                            return $this->insercionProfesores();
                         }
                         else
                         {
@@ -95,17 +101,13 @@
                         $sql = "INSERT INTO profesores(nombre, correo, contrasenia) VALUES(?, ?, ?)";
                         $consulta = $this->conexion->prepare($sql);
                 
-                        $nombre = '';
-                        $correo = '';
-                        $password = '';
-                
-                        $consulta->bind_param('sss', $nombre, $correo, $password);
+                        $consulta->bind_param('sss', $this->nombre, $this->correo, $this->password);
                 
                         for($i=0; $i<count($this->nombres); $i++) 
                         {
-                            $nombre = $this->nombres[$i];
-                            $correo = $this->correos[$i];
-                            $password = password_hash($this->passwords[$i], PASSWORD_DEFAULT, ['cost' => 15]);
+                            $this->nombre = $this->nombres[$i];
+                            $this->correo = $this->correos[$i];
+                            $this->password = password_hash($this->passwords[$i], PASSWORD_DEFAULT, ['cost' => 15]);
                 
                             $consulta->execute();
                         }
@@ -127,6 +129,7 @@
             }
             catch(mysqli_sql_exception $e) 
             {
+                if ($e->getCode() == 1062) $this->errorTexto = $this->correo;
                 return $e->getCode();
             }
         }

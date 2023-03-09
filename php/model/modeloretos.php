@@ -8,6 +8,7 @@
     class ModeloRetos
     {
         private $conexion;
+        public $errorTexto;
         public $listaRetos;
 
         /** 
@@ -485,6 +486,7 @@
             }
             catch(mysqli_sql_exception $e)
             {
+                if ($e->getCode() == 1062) $this->errorTexto = $array['nombre'];
                 return $e->getCode();
             }
         }

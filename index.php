@@ -99,6 +99,14 @@
                         case 1:
                             echo '<div class="exito">Exito: Inserción realizada correctamente.</div>';
                             break;
+                        
+                        case 1062:
+                            echo '<div class="error">Error: No se puede añadir profesor con email (' . $insercionProfesores->errorTexto . ') ya existente.</div>';
+                            break;
+
+                        case 1146:
+                            echo '<div class="error">Error: No existe la tabla de profesores.</div>';
+                            break;
 
                         default: 
                             echo '<div class="error">Error: Se ha producido un error de código: ' . $resultado . '</div>';

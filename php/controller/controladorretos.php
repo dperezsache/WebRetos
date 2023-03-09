@@ -333,5 +333,14 @@
                 return -12;  // Error no ID
             }
         }
+
+        /**
+         * Devuelve mensaje adicional al error.
+         * @return string Texto del error.
+         */
+        public function errorTexto()
+        {
+            return $this->modelo->errorTexto;
+        }
     }
 ?>

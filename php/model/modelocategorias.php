@@ -9,6 +9,7 @@
     {
         private $conexion;
         public $listaCategorias;
+        public $errorTexto;
 
         /** 
          * Obtiene la conexión a la BBDD.
@@ -58,6 +59,7 @@
             }
             catch(mysqli_sql_exception $e)
             {
+                if ($e->getCode() == 1062) $this->errorTexto = $nombre;
                 return $e->getCode();
             }
         }

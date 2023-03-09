@@ -136,7 +136,7 @@
                 break;
 
             case 1062:
-                echo '<div class="error">Error: El reto que has introducido ya existe.</div>';
+                echo '<div class="error">Error: El reto de nombre "' . $controlador->errorTexto() . '" ya existe.</div>';
                 break;
 
             case 1136:
