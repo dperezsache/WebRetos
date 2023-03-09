@@ -1,3 +1,5 @@
+</main>
+
 <footer>
     <div id="divFooter">
         <a href="https://www.youtube.com" target="_blank">

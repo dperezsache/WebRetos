@@ -1,4 +1,7 @@
 <?php
+    require_once('./php/script/insercionProfesores.php');
+    $insercionProfesores = new InsercionProfesores();
+
     // Comprobar que haya sesión
     session_start();
     if (!isset($_SESSION['idProfesor']))
@@ -59,16 +62,45 @@
                 <div class="exito">
                     <h3>Bienvenido, elige una de las opciones del menú.</h3>
                 </div>
-                <form action="./php/script/insercionprofesores.php" enctype="multipart/form-data" method="POST" id="formAlta">
+                <form action="" enctype="multipart/form-data" method="POST" id="formAlta">
                     <input type="hidden" name="MAX_FILE_SIZE" value="30000"/>
                     <div class="formItem">
                         <label for="subida">Importar profesores</label>
-                        <input type="file" name="subida" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                        <input type="file" name="subida" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
                     </div>
                     <div class="formItem">
                         <button type="submit" class="botonVerde">Importar</button>
                     </div>
                 </form>
+                <?php
+                    $resultado = $insercionProfesores->sacarDatos();
+
+                    switch($resultado)
+                    {
+                        case -3:
+                            echo '<div class="error">Error: El nº total de nombres, correos y contraseñas no coinciden. Proceso abortado.</div>';
+                            break;
+
+                        case -2:
+                            echo '<div class="error">Error: No hay conexión con la base de datos.</div>';
+                            break;
+
+                        case -1:
+                            echo '<div class="error">Error: No se ha subido una hoja de cálculo, o no tiene un formato válido (.xls ó .xlsx)</div>';
+                            break;
+
+                        case 0:
+                            break;
+
+                        case 1:
+                            echo '<div class="exito">Exito: Inserción realizada correctamente.</div>';
+                            break;
+
+                        default: 
+                            echo '<div class="error">Error: Se ha producido un error de código: ' . $resultado . '</div>';
+                            break;
+                    }
+                ?>
             </div>
         </main>
         <footer>

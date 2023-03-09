@@ -1,79 +1,121 @@
 <?php
     use Shuchkin\SimpleXLSX;
-    require_once('../config/configdb.php');
-    require_once('../config/config.php');
-    require_once('../simplexlsx/SimpleXLSX.php');
+    require_once(dirname(__DIR__) . '/model/modelodb.php');
+    require_once(dirname(__DIR__) . '/simplexlsx/SimpleXLSX.php');
 
-    $servidor = constant('SERVIDOR');
-    $usuario = constant('USUARIO');
-    $contrasenia = constant('CONTRASENIA');
-    $bd = constant('BD');
-    $codificacion = constant('CODIFICACION');
-    
-    // Inserción masiva de profesores con contraseñas hasheadas.
-    try 
+    /**
+     * Clase para sacar datos de profesores de una hoja de cálculo, e importar los datos a la BBDD.
+     */
+    class InsercionProfesores
     {
-        $nombres = array();
-        $correos = array();
-        $passwords = array();
+        private $conexion;
+        private $nombres;
+        private $correos;
+        private $passwords;
 
-        if (isset($_FILES['subida']))
+        /**
+         * Obtener la conexión con la BBDD.
+         */
+        public function obtenerConexion()
         {
-            $xlsx = new SimpleXLSX($_FILES['subida']['tmp_name']);     
-            list($cols,) = $xlsx->dimension();
+            $objConexion = new ModeloDB();
+            $this->conexion = $objConexion->conexion;
+        }
 
-            foreach($xlsx->rows() as $k)
+        /**
+         * Extrae los nombres, correos y contraseñas de los profesores de la hoja de cálculo,
+         * llama al proceso de inserción en caso de que la extracción sea correcta.
+         */
+        public function sacarDatos()
+        {
+            try 
             {
-                array_push($nombres, $k[0]);
-                array_push($correos, $k[1]);
-                array_push($passwords, $k[2]);
-            }
-
-            if((count($nombres) == count($correos)) && (count($correos) == count($passwords)))
-            {
-                $sql = "INSERT INTO profesores(nombre, correo, contrasenia) VALUES(?, ?, ?)";
-                $conexion = new mysqli($servidor, $usuario, $contrasenia, $bd);
-                $conexion->set_charset($codificacion);
+                $this->nombres = array();
+                $this->correos = array();
+                $this->passwords = array();
         
-                $consulta = $conexion->prepare($sql);
-        
-                $nombre = '';
-                $correo = '';
-                $password = '';
-        
-                $consulta->bind_param('sss', $nombre, $correo, $password);
-        
-                for($i=0; $i<count($nombres); $i++) 
+                if (!empty($_FILES))
                 {
-                    $nombre = $nombres[$i];
-                    $correo = $correos[$i];
-                    $password = password_hash($passwords[$i], PASSWORD_DEFAULT, ['cost' => 15]);
-        
-                    $consulta->execute();
+                    if (isset($_FILES['subida']))
+                    {
+                        $xlsx = new SimpleXLSX($_FILES['subida']['tmp_name']);     
+                        
+                        foreach($xlsx->rows() as $row)
+                        {
+                            if (!empty($row[0])) array_push($this->nombres, $row[0]);
+                            if (!empty($row[1])) array_push($this->correos, $row[1]);
+                            if (!empty($row[2])) array_push($this->passwords, $row[2]);
+                        }
+
+                        return $this->insercionProfesores();
+                    }
+                    else
+                    {
+                        return -1;
+                    }
                 }
-        
-                $consulta->close();
-                $conexion->close();
-        
-                echo '<h3>Éxito</h3> Inserción OK.';
+                else
+                {
+                    return 0;
+                }
             }
-            else
+            catch(mysqli_sql_exception $e)
             {
-                header('Location: ../../index.php');
+                return $e->getCode();
             }
         }
-    }
-    catch(mysqli_sql_exception $e) 
-    {
-        switch($e->getCode())
+       
+        /**
+         * Realiza el proceso de inserción con los datos que se han obtenido.
+         * @return int Nº del resultado del proceso.
+         */
+        public function insercionProfesores()
         {
-            case 1062:
-                echo '<h3>Error</h3> Intentando añadir un profesor ya existente.';
-                break;
+            try 
+            {
+                if((count($this->nombres) == count($this->correos)) && (count($this->correos) == count($this->passwords)))
+                {
+                    $this->obtenerConexion();
 
-            default:
-                echo '<h3>Error</h3> ' . $e->getCode() . ': ' . $e->getMessage();
-                break;
+                    if($this->conexion != null)
+                    {
+                        $sql = "INSERT INTO profesores(nombre, correo, contrasenia) VALUES(?, ?, ?)";
+                        $consulta = $this->conexion->prepare($sql);
+                
+                        $nombre = '';
+                        $correo = '';
+                        $password = '';
+                
+                        $consulta->bind_param('sss', $nombre, $correo, $password);
+                
+                        for($i=0; $i<count($this->nombres); $i++) 
+                        {
+                            $nombre = $this->nombres[$i];
+                            $correo = $this->correos[$i];
+                            $password = password_hash($this->passwords[$i], PASSWORD_DEFAULT, ['cost' => 15]);
+                
+                            $consulta->execute();
+                        }
+
+                        $consulta->close();
+                        $this->conexion->close();
+
+                        return 1;
+                    }
+                    else
+                    {
+                        return -2;
+                    }
+                }
+                else
+                {
+                    return -3;
+                }
+            }
+            catch(mysqli_sql_exception $e) 
+            {
+                return $e->getCode();
+            }
         }
     }
 ?>
