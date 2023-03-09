@@ -36,22 +36,34 @@
         
                 if (!empty($_FILES))
                 {
-                    if (isset($_FILES['subida']))
+                    if (isset($_FILES['subida']) )
                     {
-                        $xlsx = new SimpleXLSX($_FILES['subida']['tmp_name']);     
+                        // Comprobar que la extensión del archivo sea .xls o .xlsx
+                        $extension = pathinfo($_FILES['subida']['name'], PATHINFO_EXTENSION);
                         
-                        foreach($xlsx->rows() as $row)
+                        if ($extension == 'xls' || $extension == 'xlsx')
                         {
-                            if (!empty($row[0])) array_push($this->nombres, $row[0]);
-                            if (!empty($row[1])) array_push($this->correos, $row[1]);
-                            if (!empty($row[2])) array_push($this->passwords, $row[2]);
-                        }
+                            // Realizar extracción de datos
+                            $xlsx = new SimpleXLSX($_FILES['subida']['tmp_name']);     
+                        
+                            foreach($xlsx->rows() as $row)
+                            {
+                                if (!empty($row[0])) array_push($this->nombres, $row[0]);
+                                if (!empty($row[1])) array_push($this->correos, $row[1]);
+                                if (!empty($row[2])) array_push($this->passwords, $row[2]);
+                            }
 
-                        return $this->insercionProfesores();
+                            return 1;
+                            //return $this->insercionProfesores();
+                        }
+                        else
+                        {
+                            return -2;  // Error: Formato no válido
+                        }
                     }
                     else
                     {
-                        return -1;
+                        return -1;  // Error: No se ha subido nada
                     }
                 }
                 else
@@ -73,6 +85,7 @@
         {
             try 
             {
+                // Verificar que todos los arrays tengan la misma longitud.
                 if((count($this->nombres) == count($this->correos)) && (count($this->correos) == count($this->passwords)))
                 {
                     $this->obtenerConexion();
@@ -104,12 +117,12 @@
                     }
                     else
                     {
-                        return -2;
+                        return -3;  // Error: No conexión.
                     }
                 }
                 else
                 {
-                    return -3;
+                    return -4;  // Error: Arrays no coinciden.
                 }
             }
             catch(mysqli_sql_exception $e) 

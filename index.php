@@ -77,16 +77,20 @@
 
                     switch($resultado)
                     {
-                        case -3:
+                        case -4:
                             echo '<div class="error">Error: El nº total de nombres, correos y contraseñas no coinciden. Proceso abortado.</div>';
                             break;
 
-                        case -2:
+                        case -3:
                             echo '<div class="error">Error: No hay conexión con la base de datos.</div>';
                             break;
 
-                        case -1:
+                        case -2:
                             echo '<div class="error">Error: No se ha subido una hoja de cálculo, o no tiene un formato válido (.xls ó .xlsx)</div>';
+                            break;
+
+                        case -1:
+                            echo '<div class="error">Error: No se ha subido nada.</div>';
                             break;
 
                         case 0:
