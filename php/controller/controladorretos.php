@@ -76,14 +76,7 @@
                 }
                 else
                 {
-                    if (isset($array['reto']))
-                    {
-                        return $this->modelo->obtenerReto($array['reto']);
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    return null;
                 }
             }
             else

@@ -82,3 +82,13 @@
 <?php
     include('../includes/footer.php');
 ?>
+<script>
+    // Pequeño script que recarga la página al elegir una categoría.
+    document.addEventListener('DOMContentLoaded', () => {
+        const select = document.getElementsByName('categoria')[0];
+
+        select.addEventListener('change', (e) => {
+            window.location = 'modificar.php?id=' + select.value;
+        });
+    });
+</script>

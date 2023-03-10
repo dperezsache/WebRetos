@@ -43,7 +43,7 @@
         
                 if (!empty($_FILES))
                 {
-                    if (isset($_FILES['subida']) )
+                    if (isset($_FILES['subida']) && !empty($_FILES['subida']))
                     {
                         // Comprobar que la extensión del archivo sea .xls o .xlsx
                         $extension = pathinfo($_FILES['subida']['name'], PATHINFO_EXTENSION);

@@ -9,7 +9,6 @@
     include('../includes/navretos.php');
     
     $datos = $controlador->obtenerReto($_GET);
-    if ($datos == null) $datos = $controlador->obtenerReto($_POST);
 ?>
 <div id="divTitulo">
     <h1>Modificación de reto</h1>
@@ -180,3 +179,13 @@
 <?php
     include('../includes/footer.php');
 ?>
+<script>
+    // Pequeño script que recarga la página al elegir un reto, para que así aparezcan los datos del mismo en el formulario.
+    document.addEventListener('DOMContentLoaded', () => {
+        const select = document.getElementsByName('reto')[0];
+
+        select.addEventListener('change', (e) => {
+            window.location = 'modificar.php?id=' + select.value;
+        });
+    });
+</script>
