@@ -28,9 +28,9 @@
                         if ($controladorCategorias->cargarListado() == 1)
                         {
                             $categorias = $controladorCategorias->obtenerListado();
-
+                            
                             for($i=0; $i<count($categorias); $i++)
-                                echo '<option value="' . $fila['idCategoria'] . '">' . $fila['nombreCategoria'] . '</option>';
+                                echo '<option value="' . $categorias[$i]['idCategoria'] . '">' . $categorias[$i]['nombreCategoria'] . '</option>';
                         }
                     ?>
                 </select>
